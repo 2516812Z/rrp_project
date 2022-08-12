@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block title_block %}
+Main
+{% endblock %}
+
+{% block block_top %}
+<ul class="layui-nav layui-layout-left">
+    <!-- 移动端显示 -->
+    <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+        <i class="layui-icon layui-icon-spread-left"></i>
+    </li>
+
+    <li class="layui-nav-item layui-hide-xs"><a href="">nav 1</a></li>
+
+</ul>
+<ul class="layui-nav layui-layout-right">
+    <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+        <a href="javascript:;">
+            <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+            tester
+        </a>
+        <dl class="layui-nav-child">
+            <dd><a href="">Your Profile</a></dd>
+            <dd><a href="">Settings</a></dd>
+            <dd><a href="">Sign out</a></dd>
+        </dl>
+    </li>
+</ul>
+{% endblock %}
+
+{% block block_left %}
+<ul class="layui-nav layui-nav-tree" lay-filter="test">
+    <li class="layui-nav-item layui-nav-itemed">
+        <a class="" href="javascript:;">menu group 1</a>
+        <dl class="layui-nav-child">
+            <dd><a href="javascript:;">menu 1</a></dd>
+        </dl>
+    </li>
+    <li class="layui-nav-item">
+        <a href="javascript:;">menu group 2</a>
+        <dl class="layui-nav-child">
+            <dd><a href="javascript:;">list 1</a></dd>
+            <dd><a href="javascript:;">list 2</a></dd>
+            <dd><a href="">超链接</a></dd>
+        </dl>
+    </li>
+    <li class="layui-nav-item"><a href="javascript:;">click menu item</a></li>
+    <li class="layui-nav-item"><a href="">the links</a></li>
+</ul>
+{% endblock %}
+
+{% block body_block %}
+
+{% endblock %}
+
+{% block body_bottom %}
+
+{% endblock %}
