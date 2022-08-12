@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block title_block %}
+Register
+{% endblock %}
+
+{% block block_top %}
+<ul class="layui-nav layui-layout-right">
+    <!-- 移动端显示 -->
+    <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+        <i class="layui-icon layui-icon-spread-left"></i>
+    </li>
+
+    <li class="layui-nav-item layui-hide-xs"><a href="">Sign In</a></li>
+    <li class="layui-nav-item layui-hide-xs"><a href="">Sign Up</a></li>
+
+</ul>
+{% endblock %}
