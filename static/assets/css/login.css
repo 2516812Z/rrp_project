@@ -1,0 +1,53 @@
+.login{
+    height: 490px;
+    width: 360px;
+    background-color: rgba(255, 255, 255, 0.50);
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 40px;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    z-index:50;
+}
+
+.login_title{
+    font-family: "Poppins";
+    font-size:45px;
+    font-weight: bold;
+    color:#393D49;
+    text-align: center;
+}
+
+.login_label{
+    font-family: "Poppins";
+    font-size:20px;
+    font-weight: bold;
+    color:#393D49;
+}
+
+.login_input{
+    width: 100%;
+    height: 40px;
+    border:.5px solid #f3f3f3;
+    background: #f3f3f3;
+    border-radius:10px;
+    box-shadow:0px 0px 10px #000;
+}
+
+.login_btn{
+    position:absolute;
+    left:50%;
+    transform:translate(-50%);
+    font-size:20px;
+    font-weight: bold;
+}
+
+.login_re{
+    font-size:15px;
+    font-weight: bold;
+}

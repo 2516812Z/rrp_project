@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'login.html' %}
 {% load static %}
 
 {% block css_block %}
@@ -8,15 +8,27 @@
 Register
 {% endblock %}
 
-{% block block_top %}
-<ul class="layui-nav layui-layout-right">
-    <!-- 移动端显示 -->
-    <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-        <i class="layui-icon layui-icon-spread-left"></i>
-    </li>
+{% block body_block %}
+{% if registered %}
+<div>
+    <h3  class="login_title">Register</h3>
+    <p>Thank you for registering!</p>
+    <p><a href="{% url 'login' %}">Return to the login page.</a></p>
+</div>
+{% else %}
+<div>
+    <form id="register_form" style="height: 630px;" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+        <h3  class="login_title">Register</h3></br>
 
-    <li class="layui-nav-item layui-hide-xs"><a href="">Sign In</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="">Sign Up</a></li>
+        {% csrf_token %}
+        <div class="login_label">{{ user_form.as_p }}</div></br>
 
-</ul>
+        <div class="login_label login_re">{{ profile_form.as_p }}</div></br>
+
+        <input type="submit" class="layui-btn layui-btn-radius layui-btn-danger login_btn" value="Register" />
+        </br></br></br></br>
+        <span class="login_re">Already had an account? Go to&nbsp;&nbsp;<a href="/login" class="layui-btn layui-btn-sm layui-btn-radius">LOGIN</a></span>
+    </form>
+</div>
+{% endif %}
 {% endblock %}

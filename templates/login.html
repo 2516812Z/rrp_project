@@ -1,22 +1,99 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
 {% load static %}
 
-{% block css_block %}
-{% endblock %}
+<html>
 
-{% block title_block %}
-Login
-{% endblock %}
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>RRP -
+        {% block title_block %}
+        Login
+        {% endblock %}
+    </title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'SmallPanda.png' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/layui.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}" />
+</head>
 
-{% block block_top %}
-<ul class="layui-nav layui-layout-right">
-    <!-- 移动端显示 -->
-    <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-        <i class="layui-icon layui-icon-spread-left"></i>
-    </li>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo layui-hide-xs layui-bg-black"><img src="{% static 'SmallPanda.png' %}" alt="" height="35" />&nbsp;&nbsp;&nbsp;RRPlatform</div>
+        <!-- 头部区域（可配合layui 已有的水平导航） -->
+        <ul class="layui-nav layui-layout-right">
+            <!-- 移动端显示 -->
+            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                <i class="layui-icon layui-icon-spread-left"></i>
+            </li>
 
-    <li class="layui-nav-item layui-hide-xs"><a href="">Sign In</a></li>
-    <li class="layui-nav-item layui-hide-xs"><a href="">Sign Up</a></li>
+            <li class="layui-nav-item layui-hide-xs"><a href="/login">Sign In</a></li>
+            <li class="layui-nav-item layui-hide-xs"><a href="/register">Sign Up</a></li>
+        </ul>
+    </div>
 
-</ul>
-{% endblock %}
+    <div class="layui-body layui-body-lar">
+        <!-- 内容主体区域 -->
+        <div class="login">
+            {% block body_block %}
+                <div>
+                    <form id="login_form" method="post" action="{% url 'login' %}">
+                        <h3 class="login_title">LOGIN</h3></br>
+                        {% csrf_token %}
+                        <label for="username" class="login_label">Username</label></br></br>
+                        <input name="username" type="text" placeholder="  Email or Phone" id="username" class="login_input"></br></br>
+                        </br>
+                        <label for="password" class="login_label">Password</label></br></br>
+                        <input name="password" type="password" placeholder="  Password" id="password" class="login_input"></br></br>
+                        {{login_message}}</br></br>
+                        <input type="submit" class="layui-btn layui-btn-radius layui-btn-warm login_btn" value="LOGIN" />
+                        </br></br></br></br>
+                        <p class="login_re">Didn’t have an account? Go to&nbsp;&nbsp;<a href="/register" class="layui-btn layui-btn-sm layui-btn-radius">REGISTER</a></p></br>
+                    </form>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="layui-footer-lar">
+        <!-- 底部固定区域 -->
+        {% block body_bottom %}
+            This is AD.
+        {% endblock %}
+    </div>
+
+</div>
+
+<script src="{% static 'assets/js/layui.js' %}"></script>
+<script>
+    //JS
+    layui.use(['element', 'layer', 'util'], function(){
+        var element = layui.element
+            ,layer = layui.layer
+            ,util = layui.util
+            ,$ = layui.$;
+
+        //头部事件
+        util.event('lay-header-event', {
+            //左侧菜单事件
+            menuLeft: function(othis){
+                layer.msg('展开左侧菜单的操作', {icon: 0});
+            }
+            ,menuRight: function(){
+                layer.open({
+                    type: 1
+                    ,content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
+                    ,area: ['260px', '100%']
+                    ,offset: 'rt' //右上角
+                    ,anim: 5
+                    ,shadeClose: true
+                });
+            }
+        });
+
+    });
+</script>
+
+</body>
+
+</html>
