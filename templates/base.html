@@ -13,6 +13,9 @@
     </title>
     <link rel="shortcut icon" type="image/png" href="{% static 'SmallPanda.png' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/layui.css' %}" />
+    {% block css_block %}
+
+    {% endblock %}
 </head>
 
 <body>
@@ -20,18 +23,30 @@
     <div class="layui-header">
         <div class="layui-logo layui-hide-xs layui-bg-black"><img src="{% static 'SmallPanda.png' %}" alt="" height="35" />&nbsp;&nbsp;&nbsp;RRPlatform</div>
         <!-- 头部区域（可配合layui 已有的水平导航） -->
-        {% block block_top %}
+        <ul class="layui-nav layui-layout-left">
+            <!-- 移动端显示 -->
+            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                <i class="layui-icon layui-icon-spread-left"></i>
+            </li>
 
-        {% endblock %}
+            <li class="layui-nav-item layui-hide-xs"><i class="layui-icon layui-icon-home" style="font-size: 25px; color: #1E9FFF;"></i>&nbsp;&nbsp;
+                {% block block_top %}
+
+                {% endblock %}
+            </li>
+
+        </ul>
+
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                 <a href="javascript:;">
-                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
-                    tester
+                    {% block userinfo %}
+
+                    {% endblock %}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">Your Profile</a></dd>
-                    <dd><a href="">Sign out</a></dd>
+                    <dd><a href="/userprofile">Your Profile</a></dd>
+                    <dd><a href="/logout">Log out</a></dd>
                 </dl>
             </li>
         </ul>

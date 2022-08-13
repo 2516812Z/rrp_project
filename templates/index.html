@@ -9,15 +9,12 @@ Main
 {% endblock %}
 
 {% block block_top %}
-<ul class="layui-nav layui-layout-left">
-    <!-- 移动端显示 -->
-    <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-        <i class="layui-icon layui-icon-spread-left"></i>
-    </li>
+MAIN
+{% endblock %}
 
-    <li class="layui-nav-item layui-hide-xs">Main</li>
-
-</ul>
+{% block userinfo %}
+<img src="{{ MEDIA_URL }}{{ picture }}" class="layui-nav-img">
+{{ user.username }}
 {% endblock %}
 
 {% block block_left %}
@@ -46,5 +43,5 @@ Main
 {% endblock %}
 
 {% block body_bottom %}
-
+*** Welcome ! ***
 {% endblock %}

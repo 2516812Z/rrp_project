@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block css_block %}
+<link rel="stylesheet" href="{% static 'assets/css/usercard.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -9,16 +10,12 @@ Userprofile
 {% endblock %}
 
 {% block block_top %}
-<ul class="layui-nav layui-layout-left">
-    <!-- 移动端显示 -->
-    <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-        <i class="layui-icon layui-icon-spread-left"></i>
-    </li>
+MAIN \ USER PROFILE
+{% endblock %}
 
-    <li class="layui-nav-item layui-hide-xs">Userprofile</li>
-
-</ul>
-
+{% block userinfo %}
+<img src="{{ MEDIA_URL }}{{ picture }}" class="layui-nav-img">
+{{ user.username }}
 {% endblock %}
 
 {% block block_left %}
@@ -43,9 +40,22 @@ Userprofile
 {% endblock %}
 
 {% block body_block %}
-
+<div class="app" style="background-image: url({{ MEDIA_URL }}{{ picture }})">
+    <div class="header">
+        <img src="{{ MEDIA_URL }}{{ picture }}" class="avatar" />
+        <h2 class="name">{{ user.username }}</h2>
+        <h3 class="location">{{ user.email }}</h3>
+    </div>
+    <div class="footer">
+        <ul class="details">
+            <li>Staff No.<span>12{{ staffNo }}</span></li>
+            <li>RequestNum<br><span>32{{ requestNum }}</span></li>
+        </ul>
+        <a href="/logout" class="to-github">Log out</a>
+    </div>
+</div>
 {% endblock %}
 
 {% block body_bottom %}
-
+*** Welcome {{ user.username }}! ***
 {% endblock %}

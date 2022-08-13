@@ -5,12 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.http import *
 from rrp.forms import UserForm, UserProfileForm
+from rrp.models import Users
 
 
 
 # Create your views here.
-def index(request):
-    return render(request, 'index.html')
+
 
 def register(request):
     registered = False
@@ -64,5 +64,17 @@ def user_logout(request):
     logout(request)
     # Take the user back to the homepage.
     return redirect(reverse('login'))
+
+@login_required
+def index(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    return render(request, 'index.html', {'picture': userinfo.picture})
+
+@login_required
+def userprofile(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    return render(request, 'userprofile.html', {'picture': userinfo.picture})
 
 
