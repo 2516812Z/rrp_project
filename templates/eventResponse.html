@@ -18,48 +18,21 @@ MAIN \ SECURITY EVENT \ EVENT REQUEST
 {% endblock %}
 
 {% block body_block %}
-<form class="layui-form " method="post" action="{% url 'event_request' %}">
+<form class="layui-form " action="">
 
   <h1 class="page_title">Security Event Request Form</h1>
-  {% csrf_token %}
-  <div class="layui-form-item">
-    <label class="layui-form-label">RequestTime</label>
-    <div class="layui-input-block" style="width: 60%">
-      <input type="text" id="requestTime" placeholder="YYYY-MM-DD" autocomplete="off" class="layui-input">
-    </div>
-  </div>
-
-  <div class="layui-form-item">
-    <label class="layui-form-label">AssetType</label>
-    <div class="layui-input-block" style="width: 60%">
-      <select name="assetType" lay-verify="required">
-        <option value="">Please select</option>
-        <option value="0">Server</option>
-        <option value="1">Personal</option>
-        <option value="2">Laptop</option>
-        <option value="3">Other</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="layui-form-item">
-    <label class="layui-form-label">RequestUser</label>
-    <div class="layui-input-block" style="width: 60%">
-      <input type="text" name="requestUser" required  lay-verify="required" placeholder="Please input your ID" autocomplete="off" class="layui-input">
-    </div>
-  </div>
 
   <div class="layui-form-item">
     <label class="layui-form-label">RansomwareName</label>
     <div class="layui-input-block" style="width: 60%">
-      <input type="text" name="rName" required  lay-verify="required" placeholder="Please input the name" autocomplete="off" class="layui-input">
+      <input type="text" name="title" required  lay-verify="required" placeholder="Please input the name" autocomplete="off" class="layui-input">
     </div>
   </div>
 
   <div class="layui-form-item">
     <label class="layui-form-label">RansomwareType</label>
     <div class="layui-input-block" style="width: 60%">
-      <select name="rType" lay-verify="required">
+      <select name="city" lay-verify="required">
         <option value="">Please select</option>
         <option value="0">Crypt</option>
         <option value="1">Locker</option>
@@ -72,7 +45,7 @@ MAIN \ SECURITY EVENT \ EVENT REQUEST
   <div class="layui-form-item">
     <label class="layui-form-label">RansomAmount</label>
     <div class="layui-input-block" style="width: 60%">
-      <input type="text" name="rAmount" required  lay-verify="required" placeholder="£" autocomplete="off" class="layui-input">
+      <input type="text" name="title" required  lay-verify="required" placeholder="£" autocomplete="off" class="layui-input">
     </div>
   </div>
 
@@ -85,7 +58,7 @@ MAIN \ SECURITY EVENT \ EVENT REQUEST
 
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" >Submit</button>
+      <button class="layui-btn" lay-submit lay-filter="formDemo">Submit</button>
       <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
     </div>
   </div>

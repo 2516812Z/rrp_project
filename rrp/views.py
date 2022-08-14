@@ -4,8 +4,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.http import *
+from django.contrib.auth.models import User
 from rrp.forms import UserForm, UserProfileForm
-from rrp.models import Users
+from rrp.models import Users, Event
+
 
 
 def register(request):
@@ -77,7 +79,22 @@ def userprofile(request):
 def event_request(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
-    return render(request, 'eventRequest.html', {'picture': userinfo.picture})
+    if request.method == 'POST':
+        requestTime = request.POST.get('requestTime')
+        reqUser = request.POST.get('requestUser')
+        assetType = request.POST.get('assetType');
+        rName = request.POST.get('rName')
+        rType = request.POST.get('rType')
+        rAmount = request.POST.get('rAmount')
+        desc = request.POST.get('desc')
+        re_user = User.objects.get(username=reqUser)
+        requestUser = Users.objects.get(user=re_user)
+        event = Event.objects.create(requestTime=requestTime, requestUser=requestUser, assetType=assetType, ransomwareName=rName,
+                                     ransomwareType=rType, ransomAmount=rAmount, description=desc)
+        event.save()
+        return redirect('/event_check')
+    else:
+        return render(request, 'eventRequest.html', {'picture': userinfo.picture})
 
 @login_required
 def event_check(request):
@@ -90,5 +107,11 @@ def event_info(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
     return render(request, 'eventInfo.html', {'picture': userinfo.picture})
+
+@login_required
+def event_list(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    return render(request, 'eventList.html', {'picture': userinfo.picture})
 
 

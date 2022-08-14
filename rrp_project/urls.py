@@ -29,4 +29,5 @@ urlpatterns = [
     path('event_request/', views.event_request, name='event_request'),
     path('event_check/', views.event_check, name='event_check'),
     path('event_info/', views.event_info, name='event_info'),
+    path('event_list/', views.event_list, name='event_list'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
