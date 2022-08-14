@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block title_block %}
+Request
+{% endblock %}
+
+{% block block_top %}
+MAIN \ SECURITY EVENT \ EVENT REQUEST
+{% endblock %}
+
+{% block userinfo %}
+<img src="{{ MEDIA_URL }}{{ picture }}" class="layui-nav-img">
+{{ user.username }}
+{% endblock %}
+
+{% block body_block %}
+<form class="layui-form " action="">
+
+  <h1 class="page_title">Security Event Request Form</h1>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">RansomwareName</label>
+    <div class="layui-input-block" style="width: 60%">
+      <input type="text" name="title" required  lay-verify="required" placeholder="Please input the name" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">RansomwareType</label>
+    <div class="layui-input-block" style="width: 60%">
+      <select name="city" lay-verify="required">
+        <option value="">Please select</option>
+        <option value="0">Crypt</option>
+        <option value="1">Locker</option>
+        <option value="2">Shock</option>
+        <option value="3">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">RansomAmount</label>
+    <div class="layui-input-block" style="width: 60%">
+      <input type="text" name="title" required  lay-verify="required" placeholder="£" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">Description</label>
+    <div class="layui-input-block" style="width: 60%">
+      <textarea name="desc" placeholder="Please input the content" class="layui-textarea"></textarea>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">Submit</button>
+      <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+{% block body_bottom %}
+*** Welcome ! ***
+{% endblock %}

@@ -8,10 +8,6 @@ from rrp.forms import UserForm, UserProfileForm
 from rrp.models import Users
 
 
-
-# Create your views here.
-
-
 def register(request):
     registered = False
     if request.method == 'POST':
@@ -76,5 +72,23 @@ def userprofile(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
     return render(request, 'userprofile.html', {'picture': userinfo.picture})
+
+@login_required
+def event_request(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    return render(request, 'eventRequest.html', {'picture': userinfo.picture})
+
+@login_required
+def event_check(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    return render(request, 'eventCheck.html', {'picture': userinfo.picture})
+
+@login_required
+def event_info(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    return render(request, 'eventInfo.html', {'picture': userinfo.picture})
 
 

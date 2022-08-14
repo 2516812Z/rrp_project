@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block title_block %}
+Check
+{% endblock %}
+
+{% block block_top %}
+MAIN \ SECURITY EVENT \ EVENT CHECK
+{% endblock %}
+
+{% block userinfo %}
+<img src="{{ MEDIA_URL }}{{ picture }}" class="layui-nav-img">
+{{ user.username }}
+{% endblock %}
+
+{% block body_block %}
+<h1 class="page_title">Security Event List</h1>
+<div class="list">
+    <table class="layui-table" lay-size="lg">
+        <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Time</th>
+            <th>RansonwareName</th>
+            <th>RiskLevel</th>
+            <th>CurrentProgress</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>1</th>
+            <th>2022-08-12</th>
+            <th>WannaCry</th>
+            <th>H2</th>
+            <th>Report</th>
+            <th><a href="/event_info">Check</a></th>
+        </tr>
+        <tr>
+            <th>2</th>
+            <th>2022-08-13</th>
+            <th>WannaCry</th>
+            <th>H1</th>
+            <th>Recovery</th>
+            <th>Check</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block body_bottom %}
+*** Welcome ! ***
+{% endblock %}

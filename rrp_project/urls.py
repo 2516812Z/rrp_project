@@ -26,4 +26,7 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
     path('userprofile/', views.userprofile, name='userprofile'),
+    path('event_request/', views.event_request, name='event_request'),
+    path('event_check/', views.event_check, name='event_check'),
+    path('event_info/', views.event_info, name='event_info'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

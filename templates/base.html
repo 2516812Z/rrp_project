@@ -13,6 +13,7 @@
     </title>
     <link rel="shortcut icon" type="image/png" href="{% static 'SmallPanda.png' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/layui.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/other.css' %}" />
     {% block css_block %}
 
     {% endblock %}
@@ -55,9 +56,25 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            {% block block_left %}
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item"><a href="/">Main</a></li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">SecurityEvent</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/event_request">Event Request</a></dd>
+                        <dd><a href="/event_check">Event Check</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">Settings</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">AV</a></dd>
+                        <dd><a href="javascript:;">RansomwareType</a></dd>
+                        <dd><a href="javascript:;">Role</a></dd>
 
-            {% endblock %}
+                    </dl>
+                </li>
+            </ul>
         </div>
     </div>
 
