@@ -100,7 +100,9 @@ def event_request(request):
 def event_check(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
-    return render(request, 'eventCheck.html', {'picture': userinfo.picture})
+    events = Event.objects.filter(requestUser=userinfo)
+    return render(request, 'eventCheck.html', {'picture': userinfo.picture,
+                                               'events': events})
 
 @login_required
 def event_info(request):
@@ -112,6 +114,11 @@ def event_info(request):
 def event_list(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
-    return render(request, 'eventList.html', {'picture': userinfo.picture})
+    if userinfo.position == 'admin':
+        events = Event.objects.filter()
+    else:
+        events = None
+    return render(request, 'eventList.html', {'picture': userinfo.picture,
+                                              'events': events})
 
 

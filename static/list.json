@@ -1,0 +1,15 @@
+{
+  "code":0,
+  "msg":"",
+  "count":1000,
+  "data":[
+    {"id":10000, "username":"user-0", "sex":"女", "city":"城市-0", "sign":"签名-0", "experience":255, "logins":24, "words":82830700, "classify":"作家", "score":57},
+    {"id":10001, "username":"user-1", "sex":"男", "city":"城市-1", "sign":"签名-1", "experience":884, "logins":58, "words":64928690,"classify":"词人","score":70.5},
+    {"id":10002, "username":"user-2","sex":"女","city":"城市-2","sign":"签名-2","experience":650,"logins":77,"words":6298078,"classify":"酱油","score":31},
+    {"id":10003,"username":"user-3","sex":"女","city":"城市-3","sign":"签名-3","experience":362,"logins":157,"words":37117017,"classify":"诗人","score":68},
+    {"id":10004,"username":"user-4","sex":"男","city":"城市-4","sign":"签名-4","experience":807,"logins":51,"words":76263262,"classify":"作家","score":6},
+
+    {"id":10014,"username":"user-8","sex":"男","city":"城市-8","sign":"签名-8","experience":951,"logins":133,"words":16503371,"classify":"词人","score":14}
+
+  ]
+}

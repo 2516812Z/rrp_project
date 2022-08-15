@@ -1,6 +1,11 @@
 from django.contrib import admin
 from rrp.models import Users, Event
 
-# Register your models here.
-admin.site.register(Users)
-admin.site.register(Event)
+class UsersAdmin(admin.ModelAdmin):
+    list_display = ('user', 'position', 'superior')
+
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('id', 'requestTime', 'requestUser', 'assetType', 'ransomwareName', 'ransomwareType', 'riskLevel', 'currentProcess')
+
+admin.site.register(Users, UsersAdmin)
+admin.site.register(Event, EventAdmin)
