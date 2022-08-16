@@ -19,10 +19,61 @@ MAIN \ SETTINGS \ ASSETVALUE
 
 {% block body_block %}
 <h1 class="page_title">Asset Value List</h1>
-
-
+<div style="background-color: white;margin: 20px 182px">
+    <table class="layui-table" lay-size="lg" lay-filter="demo" >
+        <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th lay-data="{field: 'id', width:70, sort: true, fixed: 'left', type:'numbers'}">ID</th>
+            <th lay-data="{field: 'AssetName', width:200, sort: true}">AssetName</th>
+            <th lay-data="{field: 'AssetType', width:300, sort: true}">AssetType</th>
+            <th lay-data="{field: 'DataLevel', width:300, sort: true}">DataLevel</th>
+        </tr>
+        </thead>
+        <tbody id="check_table">
+        {% if allAssets %}
+        {% for SinA in allAssets %}
+        <tr>
+            <td></td>
+            <td>{{ SinA.assetName }}</td>
+            <td>{{ SinA.assetType }}</td>
+            <td>{{ SinA.dataLevel }}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
 
 {% block body_bottom %}
 *** Welcome ! ***
 {% endblock %}
+
+{% block script %}
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.init('demo', {
+            height: 500
+            ,width: 875
+            ,limit: 10
+            ,page: true
+        });
+    });
+
+    window.onload = function () {
+        var tableLine = document.getElementById("check_table");
+        for (var i = 0; i < tableLine.rows.length; i++) {
+            tableLine.rows[i].cells[0].innerHTML = (i + 1);
+        }
+    }
+</script>
+{% endblock%}

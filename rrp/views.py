@@ -6,8 +6,7 @@ from django.urls import reverse
 from django.views.decorators.http import *
 from django.contrib.auth.models import User
 from rrp.forms import UserForm, UserProfileForm
-from rrp.models import Users, Event
-
+from rrp.models import Users, Event, Ransomware, Asset
 
 
 def register(request):
@@ -136,8 +135,10 @@ def event_list(request):
 def asset_value(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
+    allassets = Asset.objects.filter()
     if userinfo.position == 'admin':
-        return render(request, 'assetValue.html', {'picture': userinfo.picture})
+        return render(request, 'assetValue.html', {'picture': userinfo.picture,
+                                                   'allAssets': allassets})
     else:
         return redirect('/')
 
@@ -145,8 +146,10 @@ def asset_value(request):
 def ransomware_type(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
+    allransomwares = Ransomware.objects.filter()
     if userinfo.position == 'admin':
-        return render(request, 'ransomwareType.html', {'picture': userinfo.picture})
+        return render(request, 'ransomwareType.html', {'picture': userinfo.picture,
+                                                       'allRansomwares': allransomwares})
     else:
         return redirect('/')
 
