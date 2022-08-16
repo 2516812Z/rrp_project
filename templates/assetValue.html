@@ -1,0 +1,28 @@
+{% extends 'baseAdmin.html' %}
+{% load static %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block title_block %}
+AssetValue
+{% endblock %}
+
+{% block block_top %}
+MAIN \ SETTINGS \ ASSETVALUE
+{% endblock %}
+
+{% block userinfo %}
+<img src="{{ MEDIA_URL }}{{ picture }}" class="layui-nav-img">
+{{ user.username }}
+{% endblock %}
+
+{% block body_block %}
+<h1 class="page_title">Asset Value List</h1>
+
+
+{% endblock %}
+
+{% block body_bottom %}
+*** Welcome ! ***
+{% endblock %}

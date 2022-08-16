@@ -57,4 +57,3 @@ class Event(models.Model):
 
 
 
-

@@ -67,12 +67,16 @@ def user_logout(request):
 def index(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
+    if userinfo.position == 'admin':
+        return render(request, 'indexAdmin.html', {'picture': userinfo.picture})
     return render(request, 'index.html', {'picture': userinfo.picture})
 
 @login_required
 def userprofile(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
+    if userinfo.position == 'admin':
+        return render(request, 'userprofileAdmin.html', {'picture': userinfo.picture})
     return render(request, 'userprofile.html', {'picture': userinfo.picture})
 
 @login_required
@@ -94,6 +98,8 @@ def event_request(request):
         event.save()
         return redirect('/event_check')
     else:
+        if userinfo.position == 'admin':
+            return render(request, 'eventRequestAdmin.html', {'picture': userinfo.picture})
         return render(request, 'eventRequest.html', {'picture': userinfo.picture})
 
 @login_required
@@ -101,6 +107,9 @@ def event_check(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
     events = Event.objects.filter(requestUser=userinfo)
+    if userinfo.position == 'admin':
+        return render(request, 'eventCheckAdmin.html', {'picture': userinfo.picture,
+                                                        'events': events})
     return render(request, 'eventCheck.html', {'picture': userinfo.picture,
                                                'events': events})
 
@@ -108,6 +117,8 @@ def event_check(request):
 def event_info(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
+    if userinfo.position == 'admin':
+        return render(request, 'eventInfoAdmin.html', {'picture': userinfo.picture})
     return render(request, 'eventInfo.html', {'picture': userinfo.picture})
 
 @login_required
@@ -120,5 +131,43 @@ def event_list(request):
         events = None
     return render(request, 'eventList.html', {'picture': userinfo.picture,
                                               'events': events})
+
+@login_required
+def asset_value(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    if userinfo.position == 'admin':
+        return render(request, 'assetValue.html', {'picture': userinfo.picture})
+    else:
+        return redirect('/')
+
+@login_required
+def ransomware_type(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    if userinfo.position == 'admin':
+        return render(request, 'ransomwareType.html', {'picture': userinfo.picture})
+    else:
+        return redirect('/')
+
+@login_required
+def role(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    allusers = Users.objects.filter()
+    if userinfo.position == 'admin':
+        return render(request, 'role.html', {'picture': userinfo.picture,
+                                             'allUsers': allusers})
+    else:
+        return redirect('/')
+
+@login_required
+def settings_table(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    if userinfo.position == 'admin':
+        return render(request, 'settingsTable.html', {'picture': userinfo.picture})
+    else:
+        return redirect('/')
 
 

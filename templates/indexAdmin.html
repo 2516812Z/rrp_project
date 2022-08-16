@@ -1,0 +1,26 @@
+{% extends 'baseAdmin.html' %}
+{% load static %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block title_block %}
+Main
+{% endblock %}
+
+{% block block_top %}
+MAIN
+{% endblock %}
+
+{% block userinfo %}
+<img src="{{ MEDIA_URL }}{{ picture }}" class="layui-nav-img">
+{{ user.username }}
+{% endblock %}
+
+{% block body_block %}
+
+{% endblock %}
+
+{% block body_bottom %}
+*** Welcome ! ***
+{% endblock %}

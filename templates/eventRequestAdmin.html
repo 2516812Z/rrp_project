@@ -1,0 +1,97 @@
+{% extends 'baseAdmin.html' %}
+{% load static %}
+
+{% block css_block %}
+{% endblock %}
+
+{% block title_block %}
+Request
+{% endblock %}
+
+{% block block_top %}
+MAIN \ SECURITY EVENT \ EVENT REQUEST
+{% endblock %}
+
+{% block userinfo %}
+<img src="{{ MEDIA_URL }}{{ picture }}" class="layui-nav-img">
+{{ user.username }}
+{% endblock %}
+
+{% block body_block %}
+<form class="layui-form " method="post" action="{% url 'event_request' %}">
+
+  <h1 class="page_title">Security Event Request Form</h1>
+  {% csrf_token %}
+  <div class="layui-form-item">
+    <label class="layui-form-label">RequestTime</label>
+    <div class="layui-input-block" style="width: 60%">
+      <input type="text" id="requestTime" placeholder="YYYY-MM-DD" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">AssetType</label>
+    <div class="layui-input-block" style="width: 60%">
+      <select name="assetType" lay-verify="required">
+        <option value="">Please select</option>
+        <option value="Server">Server</option>
+        <option value="Personal">Personal</option>
+        <option value="Laptop">Laptop</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">RequestUser</label>
+    <div class="layui-input-block" style="width: 60%">
+      <input type="text" name="requestUser" required  lay-verify="required" placeholder="Please input your ID" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">RansomwareName</label>
+    <div class="layui-input-block" style="width: 60%">
+      <input type="text" name="rName" required  lay-verify="required" placeholder="Please input the name" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">RansomwareType</label>
+    <div class="layui-input-block" style="width: 60%">
+      <select name="rType" lay-verify="required">
+        <option value="">Please select</option>
+        <option value="Crypt">Crypt</option>
+        <option value="Locker">Locker</option>
+        <option value="Shock">Shock</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">RansomAmount</label>
+    <div class="layui-input-block" style="width: 60%">
+      <input type="text" name="rAmount" required  lay-verify="required" placeholder="£" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">Description</label>
+    <div class="layui-input-block" style="width: 60%">
+      <textarea name="desc" placeholder="Please input the content" class="layui-textarea"></textarea>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" >Submit</button>
+      <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+{% block body_bottom %}
+*** Welcome ! ***
+{% endblock %}
