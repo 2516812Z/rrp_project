@@ -18,7 +18,7 @@ Register
 {% else %}
 <div>
     <form id="register_form" style="height: 630px;" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
-        <h3  class="login_title">Register</h3></br>
+        <h3  class="login_title">SIGN UP</h3></br>
 
         {% csrf_token %}
         <div class="login_label">{{ user_form.as_p }}</div></br>

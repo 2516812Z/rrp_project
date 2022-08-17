@@ -6,7 +6,8 @@ from django.urls import reverse
 from django.views.decorators.http import *
 from django.contrib.auth.models import User
 from rrp.forms import UserForm, UserProfileForm
-from rrp.models import Users, Event, Ransomware, Asset
+from rrp.models import Users, Ransomware, Asset, RiskLevelAssessment, Event
+from django.utils import timezone
 
 
 def register(request):
@@ -83,23 +84,59 @@ def event_request(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
     if request.method == 'POST':
-        requestTime = request.POST.get('requestTime')
+        # Event Request
+        requestTime = timezone.localtime(timezone.now()).strftime("%Y-%m-%d %H:%M:%S")
+
         reqUser = request.POST.get('requestUser')
-        assetType = request.POST.get('assetType');
-        rName = request.POST.get('rName')
-        rType = request.POST.get('rType')
-        rAmount = request.POST.get('rAmount')
-        desc = request.POST.get('desc')
         re_user = User.objects.get(username=reqUser)
         requestUser = Users.objects.get(user=re_user)
-        event = Event.objects.create(requestTime=requestTime, requestUser=requestUser, assetType=assetType, ransomwareName=rName,
-                                     ransomwareType=rType, ransomAmount=rAmount, description=desc)
+
+        userAssetName = request.POST.get('assetName')
+        try:
+            userAsset = Asset.objects.get(assetName=userAssetName)
+        except Asset.DoesNotExist:
+            userAsset = None
+
+        rName = request.POST.get('rName')
+        try:
+            ransomware = Ransomware.objects.get(ransomwareName=rName)
+            ransomwarename = ransomware.ransomwareName
+        except Ransomware.DoesNotExist:
+            ransomware = None
+            ransomwarename = None
+
+        rType = request.POST.get('rType')
+        rAmount = request.POST.get('rAmount')
+        duration = request.POST.get('duration')
+        desc = request.POST.get('desc')
+
+        # Event Check & Analysis
+        if ransomware != None:
+            datalevel = userAsset.dataLevel
+            ransomwareType = ransomware.ransomwareType
+            riskLevel = RiskLevelAssessment.objects.get(dataLevel=datalevel, ransomwareType=ransomwareType).riskLevel
+            isK = True
+        else:
+            riskLevel = "None"
+            isK = False
+
+        currentProcess = "C&A"
+        event = Event.objects.create(requestTime=requestTime, requestUser=requestUser, userAsset=userAsset,
+                                     ransomware=ransomware, ransomwareName=ransomwarename, ransomwareType=rType,
+                                     ransomAmount=rAmount, duration=duration, description=desc, riskLevel=riskLevel,
+                                     isKnown=isK, currentProcess=currentProcess)
         event.save()
         return redirect('/event_check')
     else:
+        allassets = Asset.objects.filter()
+        allransomwares = Ransomware.objects.filter()
         if userinfo.position == 'admin':
-            return render(request, 'eventRequestAdmin.html', {'picture': userinfo.picture})
-        return render(request, 'eventRequest.html', {'picture': userinfo.picture})
+            return render(request, 'eventRequestAdmin.html', {'picture': userinfo.picture,
+                                                              'allAssets': allassets,
+                                                              'allRansomwares': allransomwares})
+        return render(request, 'eventRequest.html', {'picture': userinfo.picture,
+                                                     'allAssets': allassets,
+                                                     'allRansomwares': allransomwares})
 
 @login_required
 def event_check(request):
@@ -113,12 +150,19 @@ def event_check(request):
                                                'events': events})
 
 @login_required
-def event_info(request):
+def event_info(request, event_id):
     user = request.user
     userinfo = Users.objects.get(user=user)
-    if userinfo.position == 'admin':
-        return render(request, 'eventInfoAdmin.html', {'picture': userinfo.picture})
-    return render(request, 'eventInfo.html', {'picture': userinfo.picture})
+    event = Event.objects.get(id=event_id)
+    if (event.requestUser == userinfo):
+        if userinfo.position == 'admin':
+            return render(request, 'eventInfoAdmin.html', {'picture': userinfo.picture,
+                                                           'event': event})
+        return render(request, 'eventInfo.html', {'picture': userinfo.picture,
+                                                  'event': event})
+    else:
+        return redirect('/')
+
 
 @login_required
 def event_list(request):
@@ -161,6 +205,17 @@ def role(request):
     if userinfo.position == 'admin':
         return render(request, 'role.html', {'picture': userinfo.picture,
                                              'allUsers': allusers})
+    else:
+        return redirect('/')
+
+@login_required
+def risk_level_assessment(request):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    allassessments = RiskLevelAssessment.objects.filter()
+    if userinfo.position == 'admin':
+        return render(request, 'riskLevelAssessment.html', {'picture': userinfo.picture,
+                                                            'allAssessments': allassessments})
     else:
         return redirect('/')
 

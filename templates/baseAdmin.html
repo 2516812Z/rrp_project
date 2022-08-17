@@ -49,8 +49,8 @@
                     {% endblock %}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="/userprofile">Your Profile</a></dd>
-                    <dd><a href="/logout">Log out</a></dd>
+                    <dd><a href="/userprofile"><i class="layui-icon layui-icon-username" style="font-size:15px"></i>&nbsp;&nbsp;Your Profile</a></dd>
+                    <dd><a href="/logout"><i class="layui-icon layui-icon-logout" style="font-size:15px"></i>&nbsp;&nbsp;Log out</a></dd>
                 </dl>
             </li>
         </ul>
@@ -60,21 +60,22 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item"><a href="/">Main</a></li>
+                <li class="layui-nav-item"><a href="/"><i class="layui-icon layui-icon-home" style="font-size:15px"></i>&nbsp;&nbsp;Main</a></li>
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">SecurityEvent</a>
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-template-1" style="font-size:15px"></i>&nbsp;&nbsp;SecurityEvent</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="/event_request">Event Request</a></dd>
-                        <dd><a href="/event_check">Event Check</a></dd>
-                        <dd><a href="/event_list">Event List</a></dd>
+                        <dd><a href="/event_request"><i class="layui-icon layui-icon-add-circle" style="font-size:15px"></i>&nbsp;&nbsp;Event Request</a></dd>
+                        <dd><a href="/event_check"><i class="layui-icon layui-icon-read" style="font-size:15px"></i>&nbsp;&nbsp;Event Check</a></dd>
+                        <dd><a href="/event_list"><i class="layui-icon layui-icon-list" style="font-size:15px"></i>&nbsp;&nbsp;Event List</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;">Settings</a>
+                    <a href="javascript:;"><i class="layui-icon layui-icon-set-fill" style="font-size:15px"></i>&nbsp;&nbsp;Settings</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="/asset_value">AV</a></dd>
-                        <dd><a href="/ransomware_type">RansomwareType</a></dd>
-                        <dd><a href="/role">Role</a></dd>
+                        <dd><a href="/role"><i class="layui-icon layui-icon-user" style="font-size:15px"></i>&nbsp;&nbsp;Role</a></dd>
+                        <dd><a href="/asset_value"><i class="layui-icon layui-icon-cellphone" style="font-size:15px"></i>&nbsp;&nbsp;AV</a></dd>
+                        <dd><a href="/ransomware_type"><i class="layui-icon layui-icon-component" style="font-size:15px"></i>&nbsp;&nbsp;RansomwareType</a></dd>
+                        <dd><a href="/risk_level_assessment"><i class="layui-icon layui-icon-ok-circle" style="font-size:15px"></i>&nbsp;&nbsp;RiskLevelAssessment</a></dd>
 
                     </dl>
                 </li>

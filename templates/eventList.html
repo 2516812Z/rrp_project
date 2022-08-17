@@ -19,9 +19,13 @@ MAIN \ SECURITY EVENT \ EVENT LIST (ADMIN)
 
 {% block body_block %}
 <h1 class="page_title">Security Event List (Admin)</h1>
-<div style="background-color: white;margin: 0px 30px">
+<div class="list">
     <table class="layui-table" lay-size="lg" lay-filter="demo" >
         <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
             <col>
             <col>
             <col>
@@ -34,14 +38,17 @@ MAIN \ SECURITY EVENT \ EVENT LIST (ADMIN)
         <thead>
         <tr>
             <th lay-data="{field: 'id', width:70, sort: true, fixed: 'left', type:'numbers'}">ID</th>
-            <th lay-data="{field: 'Time', width:200, sort: true}">Time</th>
-            <th lay-data="{field: 'RequestUser', width:120, sort: true}">ReqUser</th>
-            <th lay-data="{field: 'AssetType', width:120, sort: true}">AssetType</th>
-            <th lay-data="{field: 'RansonwareName', width:170, sort: true}">RansonwareName</th>
-            <th lay-data="{field: 'RiskLevel', width:120, sort: true}">RiskLevel</th>
-            <th lay-data="{field: 'CurrentProgress', width: 120, sort: true}">Progress</th>
-            <th lay-data="{field: 'recoveryTime', width:120, sort: true}">RecTime</th>
-            <th lay-data="{field: 'Operation', width: 120, sort: true, escape: false}">Operation</th>
+            <th lay-data="{field: 'CreateTime', width:100, sort: true}">Time</th>
+            <th lay-data="{field: 'RequestUser', width:100, sort: true}">ReqUser</th>
+            <th lay-data="{field: 'AssetName', width:100, sort: true}">AName</th>
+            <th lay-data="{field: 'RansonwareName', width:100, sort: true}">RName</th>
+            <th lay-data="{field: 'RansonwareType', width:100, sort: true}">RType</th>
+            <th lay-data="{field: 'RansonAmount', width:100, sort: true}">RAmount</th>
+            <th lay-data="{field: 'Duration', width:100, sort: true}">Duration</th>
+            <th lay-data="{field: 'RiskLevel', width:100, sort: true}">RiskLevel</th>
+            <th lay-data="{field: 'CurrentProgress', width: 100, sort: true}">Progress</th>
+            <th lay-data="{field: 'recoveryTime', width:100, sort: true}">RecTime</th>
+            <th lay-data="{field: 'Operation', width: 100, sort: true, escape: false}">Operation</th>
         </tr>
         </thead>
         <tbody id="check_table">
@@ -51,8 +58,11 @@ MAIN \ SECURITY EVENT \ EVENT LIST (ADMIN)
             <td></td>
             <td>{{ eve.requestTime }}</td>
             <td>{{ eve.requestUser }}</td>
-            <td>{{ eve.assetType }}</td>
+            <td>{{ eve.userAsset.assetName }}</td>
             <td>{{ eve.ransomwareName }}</td>
+            <td>{{ eve.ransomwareType }}</td>
+            <td>{{ eve.ransomAmount }}</td>
+            <td>{{ eve.duration }}</td>
             <td>{{ eve.riskLevel }}</td>
             <td>{{ eve.currentProcess }}</td>
             <td>{{ eve.recoveryTime }}</td>

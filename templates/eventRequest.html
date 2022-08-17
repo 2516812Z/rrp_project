@@ -18,78 +18,90 @@ MAIN \ SECURITY EVENT \ EVENT REQUEST
 {% endblock %}
 
 {% block body_block %}
-<form class="layui-form " method="post" action="{% url 'event_request' %}">
+<h1 class="page_title">Security Event Request Form</h1>
+<div class="request_frame">
+  <form class="layui-form " method="post" action="{% url 'event_request' %}">
 
-  <h1 class="page_title">Security Event Request Form</h1>
-  {% csrf_token %}
-  <div class="layui-form-item">
-    <label class="layui-form-label">RequestTime</label>
-    <div class="layui-input-block" style="width: 60%">
-      <input type="text" id="requestTime" placeholder="YYYY-MM-DD" autocomplete="off" class="layui-input">
-    </div>
-  </div>
+    {% csrf_token %}
 
-  <div class="layui-form-item">
-    <label class="layui-form-label">AssetType</label>
-    <div class="layui-input-block" style="width: 60%">
-      <select name="assetType" lay-verify="required">
-        <option value="">Please select</option>
-        <option value="Server">Server</option>
-        <option value="Personal">Personal</option>
-        <option value="Laptop">Laptop</option>
-        <option value="Other">Other</option>
-      </select>
+    <div class="layui-form-item">
+      <label class="layui-form-label">RequestUser</label>
+      <div class="layui-input-block" style="width: 60%">
+        <input type="text" name="requestUser" required  lay-verify="required" placeholder="Please input your ID" autocomplete="off" class="layui-input">
+      </div>
     </div>
-  </div>
 
-  <div class="layui-form-item">
-    <label class="layui-form-label">RequestUser</label>
-    <div class="layui-input-block" style="width: 60%">
-      <input type="text" name="requestUser" required  lay-verify="required" placeholder="Please input your ID" autocomplete="off" class="layui-input">
+    <div class="layui-form-item">
+      <label class="layui-form-label">AssetName</label>
+      <div class="layui-input-block" style="width: 60%">
+        <select name="assetName">
+          <option value="">Please select</option>
+          {% if allAssets %}
+          {% for SinA in allAssets %}
+            <option value="{{ SinA.assetName }}">{{ SinA.assetName }}</option>
+          {% endfor %}
+          {% endif %}
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="layui-form-item">
-    <label class="layui-form-label">RansomwareName</label>
-    <div class="layui-input-block" style="width: 60%">
-      <input type="text" name="rName" required  lay-verify="required" placeholder="Please input the name" autocomplete="off" class="layui-input">
+    <div class="layui-form-item">
+      <label class="layui-form-label">RansomwareName</label>
+      <div class="layui-input-block" style="width: 60%">
+        <select name="rName">
+          <option value="">Please select</option>
+          {% if allRansomwares %}
+          {% for SinA in allRansomwares %}
+            <option value="{{ SinA.ransomwareName }}">{{ SinA.ransomwareName }}</option>
+          {% endfor %}
+          {% endif %}
+          <option value="Other">Other</option>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="layui-form-item">
-    <label class="layui-form-label">RansomwareType</label>
-    <div class="layui-input-block" style="width: 60%">
-      <select name="rType" lay-verify="required">
-        <option value="">Please select</option>
-        <option value="Crypt">Crypt</option>
-        <option value="Locker">Locker</option>
-        <option value="Shock">Shock</option>
-        <option value="Other">Other</option>
-      </select>
+    <div class="layui-form-item">
+      <label class="layui-form-label">RansomwareType</label>
+      <div class="layui-input-block" style="width: 60%">
+        <select name="rType">
+          <option value="">Please select</option>
+          <option value="Crypt">Crypt</option>
+          <option value="Locker">Locker</option>
+          <option value="Shock">Shock</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="layui-form-item">
-    <label class="layui-form-label">RansomAmount</label>
-    <div class="layui-input-block" style="width: 60%">
-      <input type="text" name="rAmount" required  lay-verify="required" placeholder="£" autocomplete="off" class="layui-input">
+    <div class="layui-form-item">
+      <label class="layui-form-label">RansomAmount</label>
+      <div class="layui-input-block" style="width: 60%">
+        <input type="text" name="rAmount" required  lay-verify="required" placeholder="Bitcoin" autocomplete="off" class="layui-input">
+      </div>
     </div>
-  </div>
 
-  <div class="layui-form-item layui-form-text">
-    <label class="layui-form-label">Description</label>
-    <div class="layui-input-block" style="width: 60%">
-      <textarea name="desc" placeholder="Please input the content" class="layui-textarea"></textarea>
+    <div class="layui-form-item">
+      <label class="layui-form-label">Duration</label>
+      <div class="layui-input-block" style="width: 60%">
+        <input type="text" id="duration" required  lay-verify="required" placeholder="How many hours" autocomplete="off" class="layui-input">
+      </div>
     </div>
-  </div>
 
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" >Submit</button>
-      <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+    <div class="layui-form-item layui-form-text">
+      <label class="layui-form-label">Description</label>
+      <div class="layui-input-block" style="width: 60%">
+        <textarea name="desc" placeholder="Please input the content" class="layui-textarea"></textarea>
+      </div>
     </div>
-  </div>
-</form>
+
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" >Submit</button>
+        <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+      </div>
+    </div>
+  </form>
+</div>
 {% endblock %}
 
 {% block body_bottom %}

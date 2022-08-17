@@ -38,12 +38,12 @@
             {% block body_block %}
                 <div>
                     <form id="login_form" method="post" action="{% url 'login' %}">
-                        <h3 class="login_title">LOGIN</h3></br>
+                        <h3 class="login_title">SIGN IN</h3></br>
                         {% csrf_token %}
-                        <label for="username" class="login_label">Username</label></br></br>
+                        <label for="username" class="login_label"><i class="layui-icon layui-icon-username" style="font-size:20px"></i>&nbsp;&nbsp;Username</label></br></br>
                         <input name="username" type="text" placeholder="  Email or Phone" id="username" class="login_input"></br></br>
                         </br>
-                        <label for="password" class="login_label">Password</label></br></br>
+                        <label for="password" class="login_label"><i class="layui-icon layui-icon-password" style="font-size:20px"></i>&nbsp;&nbsp;Password</label></br></br>
                         <input name="password" type="password" placeholder="  Password" id="password" class="login_input"></br></br>
                         {{login_message}}</br></br>
                         <input type="submit" class="layui-btn layui-btn-radius layui-btn-warm login_btn" value="LOGIN" />
