@@ -154,7 +154,7 @@ def event_info(request, event_id):
     user = request.user
     userinfo = Users.objects.get(user=user)
     event = Event.objects.get(id=event_id)
-    if (event.requestUser == userinfo):
+    if (event.requestUser == userinfo or userinfo.position == 'admin'):
         if userinfo.position == 'admin':
             return render(request, 'eventInfoAdmin.html', {'picture': userinfo.picture,
                                                            'event': event})

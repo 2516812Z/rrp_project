@@ -2,6 +2,13 @@
     position: relative;
     padding:15px 50px;
     font-weight: bold;
+    background: linear-gradient(45deg, #207893 25%,#2ea3b7 100%);
+    font-family: sans-serif;
+    color: rgba(255,255,255,1);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    line-height: 23px;
+    box-shadow:0px 0px 10px #000;
 }
 
 .request_frame{
@@ -27,4 +34,23 @@
     margin: 20px 182px;
 }
 
+.btn-red{
+    background-color: #e74c3c;
+}
+
+.btn-orange{
+    background-color: #e67e22;
+}
+
+.btn-yellow{
+    background-color: #f1c40f;
+}
+
+.btn-green{
+    background-color: #16a085;
+}
+
+.btn-blue{
+    background-color: #34495e;
+}
 

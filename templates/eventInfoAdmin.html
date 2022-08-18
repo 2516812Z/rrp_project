@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block css_block %}
+<link rel="stylesheet" href="{% static 'assets/css/process.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -19,59 +20,56 @@ MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
 
 {% block body_block %}
 <h1 class="page_title">Security Event Detail</h1>
-<div class="list">
-    <ul class="layui-timeline">
-        <li class="layui-timeline-item">
-            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-            <div class="layui-timeline-content layui-text">
-                <h3 class="layui-timeline-title">Event Request</h3>
-                <p>
-                    layui 2.0 的一切准备工作似乎都已到位。发布之弦，一触即发。
-                    <br>不枉近百个日日夜夜与之为伴。因小而大，因弱而强。
-                    <br>无论它能走多远，抑或如何支撑？至少我曾倾注全心，无怨无悔 <i class="layui-icon"></i>
-                </p>
-            </div>
-        </li>
-        <li class="layui-timeline-item">
-            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-            <div class="layui-timeline-content layui-text">
-                <h3 class="layui-timeline-title">Check and analysis</h3>
-                <p>杜甫的思想核心是儒家的仁政思想，他有“<em>致君尧舜上，再使风俗淳</em>”的宏伟抱负。个人最爱的名篇有：</p>
-                <ul>
-                    <li>《登高》</li>
-                    <li>《茅屋为秋风所破歌》</li>
-                </ul>
-            </div>
-        </li>
-        <li class="layui-timeline-item">
-            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-            <div class="layui-timeline-content layui-text">
-                <h3 class="layui-timeline-title">Report</h3>
-                <p>
-                    中国人民抗日战争胜利72周年
-                    <br>常常在想，尽管对这个国家有这样那样的抱怨，但我们的确生在了最好的时代
-                    <br>铭记、感恩
-                    <br>所有为中华民族浴血奋战的英雄将士
-                    <br>永垂不朽
-                </p>
-            </div>
-        </li>
-        <li class="layui-timeline-item">
-            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-            <div class="layui-timeline-content layui-text">
-                <div class="layui-timeline-title">Recovery</div>
-            </div>
-        </li>
-        <li class="layui-timeline-item">
-            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-            <div class="layui-timeline-content layui-text">
-                <div class="layui-timeline-title">Activities</div>
-            </div>
-        </li>
-    </ul>
+<div class="process-wrapper">
+    <div id="progress-bar-container">
+        <ul>
+            <li class="step step01 active"><div class="step-inner">Discovery</div></li>
+            <li class="step step02"><div class="step-inner">Strategy Development</div></li>
+            <li class="step step03"><div class="step-inner">Creative Concepting</div></li>
+            <li class="step step04"><div class="step-inner">Production &amp; Execution</div></li>
+            <li class="step step05"><div class="step-inner">Ongoing Analysis &amp; Results</div></li>
+        </ul>
+
+        <div id="line">
+            <div id="line-progress"></div>
+        </div>
+    </div>
+
+    <div id="progress-content-section">
+        <div class="section-content discovery active">
+            <h2>Discovery</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec neque justo, consequat non fermentum ac, tempor eu turpis. Proin nulla eros, placerat non ipsum ut, dapibus ullamcorper ex. Nulla in dapibus lorem. Suspendisse vitae velit ac ante consequat placerat ut sed eros. Nullam porttitor mattis mi, id fringilla ex consequat eu. Praesent pulvinar tincidunt leo et condimentum. Maecenas volutpat turpis at felis egestas malesuada. Phasellus sem odio, venenatis at ex a, lacinia suscipit orci.</p>
+        </div>
+
+        <div class="section-content strategy">
+            <h2>Strategy Development</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec neque justo, consequat non fermentum ac, tempor eu turpis. Proin nulla eros, placerat non ipsum ut, dapibus ullamcorper ex. Nulla in dapibus lorem. Suspendisse vitae velit ac ante consequat placerat ut sed eros. Nullam porttitor mattis mi, id fringilla ex consequat eu. Praesent pulvinar tincidunt leo et condimentum. Maecenas volutpat turpis at felis egestas malesuada. Phasellus sem odio, venenatis at ex a, lacinia suscipit orci.</p>
+        </div>
+
+        <div class="section-content creative">
+            <h2>Creative Concepting</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec neque justo, consequat non fermentum ac, tempor eu turpis. Proin nulla eros, placerat non ipsum ut, dapibus ullamcorper ex. Nulla in dapibus lorem. Suspendisse vitae velit ac ante consequat placerat ut sed eros. Nullam porttitor mattis mi, id fringilla ex consequat eu. Praesent pulvinar tincidunt leo et condimentum. Maecenas volutpat turpis at felis egestas malesuada. Phasellus sem odio, venenatis at ex a, lacinia suscipit orci.</p>
+        </div>
+
+        <div class="section-content production">
+            <h2>Production &amp; Execution</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec neque justo, consequat non fermentum ac, tempor eu turpis. Proin nulla eros, placerat non ipsum ut, dapibus ullamcorper ex. Nulla in dapibus lorem. Suspendisse vitae velit ac ante consequat placerat ut sed eros. Nullam porttitor mattis mi, id fringilla ex consequat eu. Praesent pulvinar tincidunt leo et condimentum. Maecenas volutpat turpis at felis egestas malesuada. Phasellus sem odio, venenatis at ex a, lacinia suscipit orci.</p>
+        </div>
+
+        <div class="section-content analysis">
+            <h2>Ongoing Analysis &amp; Results</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec neque justo, consequat non fermentum ac, tempor eu turpis. Proin nulla eros, placerat non ipsum ut, dapibus ullamcorper ex. Nulla in dapibus lorem. Suspendisse vitae velit ac ante consequat placerat ut sed eros. Nullam porttitor mattis mi, id fringilla ex consequat eu. Praesent pulvinar tincidunt leo et condimentum. Maecenas volutpat turpis at felis egestas malesuada. Phasellus sem odio, venenatis at ex a, lacinia suscipit orci.</p>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
 
 {% block body_bottom %}
 *** Welcome ! ***
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/process.js' %}"></script>
 {% endblock %}
