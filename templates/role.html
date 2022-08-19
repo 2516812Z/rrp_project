@@ -28,14 +28,16 @@ MAIN \ SETTINGS \ ROLE
             <col>
             <col>
             <col>
+            <col>
         </colgroup>
         <thead>
         <tr>
             <th lay-data="{field: 'id', width:70, sort: true, fixed: 'left', type:'numbers'}">ID</th>
-            <th lay-data="{field: 'Username', width:200, sort: true}">Username</th>
+            <th lay-data="{field: 'Username', width:150, sort: true}">Username</th>
             <th lay-data="{field: 'UserEmail', width:200, sort: true}">UserEmail</th>
-            <th lay-data="{field: 'Position', width:200, sort: true}">Position</th>
-            <th lay-data="{field: 'Superior', width:200, sort: true}">Superior</th>
+            <th lay-data="{field: 'Position', width:150, sort: true}">Position</th>
+            <th lay-data="{field: 'Superior', width:150, sort: true}">Superior</th>
+            <th lay-data="{field: 'Reporter', width:150, sort: true}">Reporter</th>
         </tr>
         </thead>
         <tbody id="check_table">
@@ -47,6 +49,7 @@ MAIN \ SETTINGS \ ROLE
             <td>{{ SinU.user.email }}</td>
             <td>{{ SinU.position }}</td>
             <td>{{ SinU.superior }}</td>
+            <td>{{ SinU.reporter }}</td>
         </tr>
         {% endfor %}
         {% endif %}

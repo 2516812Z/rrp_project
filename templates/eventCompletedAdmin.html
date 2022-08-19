@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'baseAdmin.html' %}
 {% load static %}
 
 {% block css_block %}
@@ -27,11 +27,11 @@ MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
             <li class="step step02 active"><div class="step-inner">Detection & Analysis</div></li>
             <li class="step step03 active"><div class="step-inner">Report</div></li>
             <li class="step step04 active"><div class="step-inner">Recovery</div></li>
-            <li class="step step05"><div class="step-inner">Lessons Learned</div></li>
+            <li class="step step05 active"><div class="step-inner">Lessons Learned</div></li>
         </ul>
 
         <div id="line">
-            <div id="line-progress" style="width: 78%"></div>
+            <div id="line-progress" style="width: 100%"></div>
         </div>
     </div>
 
@@ -97,36 +97,51 @@ MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
                 <div class="layui-col-md9"><p style="word-wrap:break-word">{{ event.recoveryInfo }}</p></div>
             </div>
             <div style="margin: 20px">
-                <button class="layui-btn layui-btn-fluid">Completed !</button>
+                <form class="layui-form " method="post" action="/settings_table/">
+                    {% csrf_token %}
+                    <input type="hidden" value="D&A" name="sub_action" >
+                    <input type="hidden" value="{{ event.id }}" name="sub_id" >
+                    <button type="submit" class="layui-btn layui-btn-fluid">Update Information</button>
+                </form>
             </div>
         </div>
 
         <div class="section-content creative">
             <h2>Report</h2>
             {% if repCount == 0 %}
-            <div class="layui-row">
-                <div class="layui-col-md3"><h3>Notice:</h3></div>
-                <div class="layui-col-md9" style="margin-bottom: 20px"><p>Wait admin to confirm the notified users !</p></div>
-            </div>
-            <div style="margin: 20px">
-                <button class="layui-btn layui-btn-fluid layui-btn-danger">Current : In progress...</button>
-            </div>
+                <div class="layui-row">
+                    <div class="layui-col-md3"><h3>Notice:</h3></div>
+                    <div class="layui-col-md9" style="margin-bottom: 20px"><p>Please click the follow button and confirm the users to be notified!</p></div>
+                </div>
+                <div style="margin: 20px">
+                    <form class="layui-form " method="post" action="/settings_table/">
+                        {% csrf_token %}
+                        <input type="hidden" value="Report" name="sub_action" >
+                        <input type="hidden" value="{{ event.id }}" name="sub_id" >
+                        <button type="submit" class="layui-btn layui-btn-fluid">Confirm the notified user</button>
+                    </form>
+                </div>
             {% else %}
-            {% for rep in reporters %}
-            <div class="layui-row">
-                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>Reporter:</h3></div></div>
-                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ rep.username }}</p></div></div>
-                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>Reporter Email:</h3></div></div>
-                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ rep.email }}</p></div></div>
-            </div>
-            {% endfor %}
-            <div style="margin: 20px">
-                <button class="layui-btn layui-btn-fluid">Completed !</button>
-            </div>
+                {% for rep in reporters %}
+                <div class="layui-row">
+                    <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>Reporter:</h3></div></div>
+                    <div class="layui-col-xs3"><div class="grid-demo"><p>{{ rep.username }}</p></div></div>
+                    <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>Reporter Email:</h3></div></div>
+                    <div class="layui-col-xs3"><div class="grid-demo"><p>{{ rep.email }}</p></div></div>
+                </div>
+                {% endfor %}
+                <div style="margin: 20px">
+                    <form class="layui-form " method="post" action="/settings_table/">
+                        {% csrf_token %}
+                        <input type="hidden" value="Report" name="sub_action" >
+                        <input type="hidden" value="{{ event.id }}" name="sub_id" >
+                        <button type="submit" class="layui-btn layui-btn-fluid">Confirm the notified user</button>
+                    </form>
+                </div>
             {% endif %}
         </div>
 
-        <div class="section-content production active">
+        <div class="section-content production">
             <h2>Recovery</h2>
             <div class="layui-row">
                 <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RecoveryType:</h3></div></div>
@@ -143,15 +158,32 @@ MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
                 <div class="layui-col-md9"><p style="word-wrap:break-word">{{ event.recoveryInfo }}</p></div>
             </div>
             <div style="margin: 20px">
-                <button class="layui-btn layui-btn-fluid layui-btn-danger">Current : In progress...</button>
+                <form class="layui-form " method="post" action="/settings_table/">
+                    {% csrf_token %}
+                    <input type="hidden" value="Recovery" name="sub_action" >
+                    <input type="hidden" value="{{ event.id }}" name="sub_id" >
+                    <button type="submit" class="layui-btn layui-btn-fluid">Update Information</button>
+                </form>
             </div>
         </div>
 
-        <div class="section-content analysis">
+        <div class="section-content analysis active">
             <h2>Lessons Learned</h2>
+
             <div class="layui-row">
-                <div class="layui-col-md3"><h3>Notice:</h3></div>
-                <div class="layui-col-md9" style="margin-bottom: 20px"><p>The process has not yet arrived.</p></div>
+                <div class="layui-col-md3"><h3>Lesson Learned Records:</h3></div>
+                <div class="layui-col-md9"><p style="word-wrap:break-word">{{ event.recoveryInfo }}</p></div>
+            </div>
+            <div style="margin: 20px">
+                <form class="layui-form " method="post" action="/settings_table/">
+                    {% csrf_token %}
+                    <input type="hidden" value="LL" name="sub_action" >
+                    <input type="hidden" value="{{ event.id }}" name="sub_id" >
+                    <button type="submit" class="layui-btn layui-btn-fluid">Update Information</button>
+                </form>
+            </div>
+            <div style="margin: 20px">
+                <button class="layui-btn layui-btn-fluid">Completed !</button>
             </div>
         </div>
 

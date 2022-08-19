@@ -90,7 +90,6 @@ class Event(models.Model):
     handler = models.CharField(max_length=MAX_OTHER_LENGTH, null=True)
     # Event Report
     reporters = models.ManyToManyField(User, blank=True)
-    #reporters = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
     # Event Recovery
     records = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
     # Event AF-Activity

@@ -76,8 +76,10 @@ MAIN \ SECURITY EVENT \ EVENT CHECK
             <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-orange">{{ eve.currentProcess }}</button></td>
             {% elif 'Recovery' in eve.currentProcess %}
             <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-green">{{ eve.currentProcess }}</button></td>
-            {% else %}
+            {% elif 'LL' in eve.currentProcess %}
             <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-blue">{{ eve.currentProcess }}</button></td>
+            {% else %}
+            <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-pp">{{ eve.currentProcess }}</button></td>
             {% endif %}
             <td>{{ eve.recoveryTime }}</td>
             <td><a href="/event_info/{{ eve.id }}" class="layui-btn layui-btn-sm layui-btn-radius">Check</a></td>

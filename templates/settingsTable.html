@@ -169,6 +169,23 @@ MAIN \ SETTINGS \ SETTINGS TABLE
         </div>
     </form>
     {% elif action == 'LL'%}
+    <form class="layui-form " method="post" action="/event_info/{{ event.id }}">
+        {% csrf_token %}
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">Lesson Learned Records</label>
+            <div class="layui-input-block" style="width: 60%">
+                <textarea name="records" placeholder="Please enter some estimated information" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item" >
+            <div class="layui-input-block" >
+                <input type="hidden" value="LL" name="sub_action" >
+                <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" >Submit</button>
+                <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+            </div>
+        </div>
+    </form>
     {% else %}
     <h3>Nothing</h3>
     {% endif %}

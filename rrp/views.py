@@ -204,9 +204,11 @@ def event_info(request, event_id):
             event.currentProcess = "LL"
             event.save()
         elif event.currentProcess == 'LL' and sub_action == 'LL':
+            record = request.POST.get('records')
+            event.records = record
             event.save()
         elif event.currentProcess == 'LL' and sub_action == 'NEXT':
-            event.currentProcess = "LL"
+            event.currentProcess = "Completed"
             event.save()
         else:
             event.save()
@@ -232,6 +234,11 @@ def event_info(request, event_id):
                                                              'event': event,
                                                              'repCount': repCount,
                                                              'reporters': event.reporters.all()})
+            elif event.currentProcess == "Completed":
+                return render(request, 'eventCompletedAdmin.html', {'picture': userinfo.picture,
+                                                             'event': event,
+                                                             'repCount': repCount,
+                                                             'reporters': event.reporters.all()})
             else:
                 return redirect('/')
         if event.currentProcess == "D&A":
@@ -252,6 +259,11 @@ def event_info(request, event_id):
                                                     'event': event,
                                                     'repCount': repCount,
                                                     'reporters': event.reporters.all()})
+        elif event.currentProcess == "Completed":
+            return render(request, 'eventCompleted.html', {'picture': userinfo.picture,
+                                                           'event': event,
+                                                           'repCount': repCount,
+                                                           'reporters': event.reporters.all()})
         else:
             return redirect('/')
     else:
