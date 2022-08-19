@@ -87,7 +87,7 @@ class Event(models.Model):
     recoveryType = models.CharField(max_length=MAX_OTHER_LENGTH, default='Non')
     recoveryTime = models.IntegerField(null=True)
     recoveryInfo = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
-    Handler = models.CharField(max_length=MAX_OTHER_LENGTH, null=True)
+    handler = models.CharField(max_length=MAX_OTHER_LENGTH, null=True)
     # Event Report
     reporters = models.ManyToManyField(User, blank=True)
     #reporters = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)

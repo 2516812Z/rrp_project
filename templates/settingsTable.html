@@ -125,6 +125,49 @@ MAIN \ SETTINGS \ SETTINGS TABLE
         </div>
     </form>
     {% elif action == 'Recovery' %}
+    <form class="layui-form " method="post" action="/event_info/{{ event.id }}">
+        {% csrf_token %}
+        <div class="layui-form-item">
+            <label class="layui-form-label">RecoveryType(R)</label>
+            <div class="layui-input-block" style="width: 60%">
+                <select name="recoveryType">
+                    <option value="">Please select</option>
+                    <option value="Full Recovery">Full Recovery</option>
+                    <option value="Partial Recovery">Partial Recovery</option>
+                    <option value="Unrecoverable">Unrecoverable</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">RecoveryTime(R)</label>
+            <div class="layui-input-block" style="width: 60%">
+                <input type="text" name="recoveryTime" required  lay-verify="required" placeholder="Please enter an estimated value" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">RecoveryInfo</label>
+            <div class="layui-input-block" style="width: 60%">
+                <textarea name="recoveryInfo" placeholder="Please enter some estimated information" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Handler</label>
+            <div class="layui-input-block" style="width: 60%">
+                <input type="text" name="handler" required  lay-verify="required" placeholder="Please enter the username of handler" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item" >
+            <div class="layui-input-block" >
+                <input type="hidden" value="Recovery" name="sub_action" >
+                <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" >Submit</button>
+                <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+            </div>
+        </div>
+    </form>
     {% elif action == 'LL'%}
     {% else %}
     <h3>Nothing</h3>

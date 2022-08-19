@@ -26,12 +26,12 @@ MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
             <li class="step step01 active"><div class="step-inner">Request</div></li>
             <li class="step step02 active"><div class="step-inner">Detection & Analysis</div></li>
             <li class="step step03 active"><div class="step-inner">Report</div></li>
-            <li class="step step04"><div class="step-inner">Recovery</div></li>
+            <li class="step step04 active"><div class="step-inner">Recovery</div></li>
             <li class="step step05"><div class="step-inner">Lessons Learned</div></li>
         </ul>
 
         <div id="line">
-            <div id="line-progress" style="width: 53%"></div>
+            <div id="line-progress" style="width: 78%"></div>
         </div>
     </div>
 
@@ -106,7 +106,7 @@ MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
             </div>
         </div>
 
-        <div class="section-content creative active">
+        <div class="section-content creative">
             <h2>Report</h2>
             {% if repCount == 0 %}
                 <div class="layui-row">
@@ -138,22 +138,41 @@ MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
                         <button type="submit" class="layui-btn layui-btn-fluid">Confirm the notified user</button>
                     </form>
                 </div>
-                <div style="margin: 20px">
-                    <form class="layui-form " method="post" action="/event_info/{{ event.id }}">
-                        {% csrf_token %}
-                        <input type="hidden" value="NEXT" name="sub_action" >
-                        <button type="submit" class="layui-btn layui-btn-fluid layui-btn-danger">Click to the next process</button>
-                    </form>
-                </div>
             {% endif %}
         </div>
 
-        <div class="section-content production">
+        <div class="section-content production active">
             <h2>Recovery</h2>
             <div class="layui-row">
-                <div class="layui-col-md3"><h3>Notice:</h3></div>
-                <div class="layui-col-md9" style="margin-bottom: 20px"><p>The process has not yet arrived.</p></div>
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RecoveryType:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.recoveryType }}</p></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RecoveryTime:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.recoveryTime }}</p></div></div>
             </div>
+            <div class="layui-row">
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>Handler:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.handler }}</p></div></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md3"><h3>RecoveryInfo:</h3></div>
+                <div class="layui-col-md9"><p style="word-wrap:break-word">{{ event.recoveryInfo }}</p></div>
+            </div>
+            <div style="margin: 20px">
+                <form class="layui-form " method="post" action="/settings_table/">
+                    {% csrf_token %}
+                    <input type="hidden" value="Recovery" name="sub_action" >
+                    <input type="hidden" value="{{ event.id }}" name="sub_id" >
+                    <button type="submit" class="layui-btn layui-btn-fluid">Update Information</button>
+                </form>
+            </div>
+            <div style="margin: 20px">
+                <form class="layui-form " method="post" action="/event_info/{{ event.id }}">
+                    {% csrf_token %}
+                    <input type="hidden" value="NEXT" name="sub_action" >
+                    <button type="submit" class="layui-btn layui-btn-fluid layui-btn-danger">Click to the next process</button>
+                </form>
+            </div>
+
         </div>
 
         <div class="section-content analysis">

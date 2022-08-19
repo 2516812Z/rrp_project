@@ -191,13 +191,21 @@ def event_info(request, event_id):
             event.currentProcess = "Recovery"
             event.save()
         elif event.currentProcess == 'Recovery' and sub_action == 'Recovery':
+            recType = request.POST.get('recoveryType')
+            recTime = request.POST.get('recoveryTime')
+            recInfo = request.POST.get('recoveryInfo')
+            handler = request.POST.get('handler')
+            event.recoveryType = recType
+            event.recoveryTime = recTime
+            event.recoveryInfo = recInfo
+            event.handler = handler
             event.save()
         elif event.currentProcess == 'Recovery' and sub_action == 'NEXT':
             event.currentProcess = "LL"
             event.save()
         elif event.currentProcess == 'LL' and sub_action == 'LL':
             event.save()
-        elif event.currentProcess == 'Recovery' and sub_action == 'NEXT':
+        elif event.currentProcess == 'LL' and sub_action == 'NEXT':
             event.currentProcess = "LL"
             event.save()
         else:
@@ -216,10 +224,14 @@ def event_info(request, event_id):
                                                                  'reporters': event.reporters.all()})
             elif event.currentProcess == "Recovery":
                 return render(request, 'eventRecoveryAdmin.html', {'picture': userinfo.picture,
-                                                                   'event': event})
+                                                                   'event': event,
+                                                                   'repCount': repCount,
+                                                                   'reporters': event.reporters.all()})
             elif event.currentProcess == "LL":
                 return render(request, 'eventLLAdmin.html', {'picture': userinfo.picture,
-                                                             'event': event})
+                                                             'event': event,
+                                                             'repCount': repCount,
+                                                             'reporters': event.reporters.all()})
             else:
                 return redirect('/')
         if event.currentProcess == "D&A":
@@ -232,10 +244,14 @@ def event_info(request, event_id):
                                                         'reporters': event.reporters.all()})
         elif event.currentProcess == "Recovery":
             return render(request, 'eventRecovery.html', {'picture': userinfo.picture,
-                                                          'event': event})
+                                                          'event': event,
+                                                          'repCount': repCount,
+                                                          'reporters': event.reporters.all()})
         elif event.currentProcess == "LL":
             return render(request, 'eventLL.html', {'picture': userinfo.picture,
-                                                    'event': event})
+                                                    'event': event,
+                                                    'repCount': repCount,
+                                                    'reporters': event.reporters.all()})
         else:
             return redirect('/')
     else:
