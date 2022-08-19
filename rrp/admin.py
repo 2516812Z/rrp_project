@@ -2,10 +2,10 @@ from django.contrib import admin
 from rrp.models import Users, Event, Ransomware, Asset, RiskLevelAssessment
 
 class UsersAdmin(admin.ModelAdmin):
-    list_display = ('user', 'position', 'superior')
+    list_display = ('user', 'position', 'superior', 'reporter')
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('id', 'requestTime', 'requestUser', 'userAsset', 'ransomware', 'ransomwareName', 'ransomwareType', 'duration', 'riskLevel', 'currentProcess')
+    list_display = ('id', 'requestTime', 'requestUser', 'userAsset', 'ransomware', 'ransomwareName', 'ransomwareType', 'duration', 'riskLevel', 'currentProcess', 'reporter_list')
 
 class AssetAdmin(admin.ModelAdmin):
     list_display = ('assetName', 'assetType', 'dataLevel')

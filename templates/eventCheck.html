@@ -45,8 +45,8 @@ MAIN \ SECURITY EVENT \ EVENT CHECK
             <th lay-data="{field: 'RansonwareType', width:100, sort: true}">RType</th>
             <th lay-data="{field: 'RansonAmount', width:100, sort: true}">RAmount</th>
             <th lay-data="{field: 'Duration', width:100, sort: true}">Duration</th>
-            <th lay-data="{field: 'RiskLevel', width:100, sort: true}">RiskLevel</th>
-            <th lay-data="{field: 'CurrentProgress', width: 100, sort: true}">Progress</th>
+            <th lay-data="{field: 'RiskLevel', width:100, sort: true, escape: false}">RiskLevel</th>
+            <th lay-data="{field: 'CurrentProgress', width: 100, sort: true, escape: false}">Progress</th>
             <th lay-data="{field: 'recoveryTime', width:100, sort: true}">RecTime</th>
             <th lay-data="{field: 'Operation', width: 100, sort: true, escape: false}">Operation</th>
         </tr>
@@ -63,10 +63,24 @@ MAIN \ SECURITY EVENT \ EVENT CHECK
             <td>{{ eve.ransomwareType }}</td>
             <td>{{ eve.ransomAmount }}</td>
             <td>{{ eve.duration }}</td>
-            <td>{{ eve.riskLevel }}</td>
-            <td>{{ eve.currentProcess }}</td>
+            {% if 'H' in eve.riskLevel %}
+            <td><button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">{{ eve.riskLevel }}</button></td>
+            {% elif 'M' in eve.riskLevel %}
+            <td><button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-warm">{{ eve.riskLevel }}</button></td>
+            {% else %}
+            <td><button class="layui-btn layui-btn-sm layui-btn-radius">{{ eve.riskLevel }}</button></td>
+            {% endif %}
+            {% if 'D&A' in eve.currentProcess %}
+            <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-red">{{ eve.currentProcess }}</button></td>
+            {% elif 'Report' in eve.currentProcess %}
+            <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-orange">{{ eve.currentProcess }}</button></td>
+            {% elif 'Recovery' in eve.currentProcess %}
+            <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-green">{{ eve.currentProcess }}</button></td>
+            {% else %}
+            <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-blue">{{ eve.currentProcess }}</button></td>
+            {% endif %}
             <td>{{ eve.recoveryTime }}</td>
-            <td><a href="/event_info">Check</a></td>
+            <td><a href="/event_info/{{ eve.id }}" class="layui-btn layui-btn-sm layui-btn-radius">Check</a></td>
         </tr>
         {% endfor %}
         {% endif %}

@@ -120,7 +120,7 @@ def event_request(request):
             riskLevel = "None"
             isK = False
 
-        currentProcess = "C&A"
+        currentProcess = "Req"
         event = Event.objects.create(requestTime=requestTime, requestUser=requestUser, userAsset=userAsset,
                                      ransomware=ransomware, ransomwareName=ransomwarename, ransomwareType=rType,
                                      ransomAmount=rAmount, duration=duration, description=desc, riskLevel=riskLevel,
@@ -154,15 +154,92 @@ def event_info(request, event_id):
     user = request.user
     userinfo = Users.objects.get(user=user)
     event = Event.objects.get(id=event_id)
-    if (event.requestUser == userinfo or userinfo.position == 'admin'):
+    sub_action = request.POST.get('sub_action')
+    repCount = len(event.reporters.all())
+    if request.method == 'POST':
+        if event.currentProcess == 'D&A' and sub_action == 'D&A':
+            rName = request.POST.get('ransomwareName')
+            rType = request.POST.get('ransomwareType')
+            rAmount = request.POST.get('ransomAmount')
+            duration = request.POST.get('duration')
+            isKnown = request.POST.get('isKnown')
+            reType = request.POST.get('recoveryType')
+            reTime = request.POST.get('recoveryTime')
+            reInfo = request.POST.get('recoveryInfo')
+            event.ransomwareName = rName
+            event.ransomwareType = rType
+            event.ransomAmount = rAmount
+            event.duration = duration
+            event.isKnown = isKnown
+            event.recoveryType = reType
+            event.recoveryTime = reTime
+            event.recoveryInfo = reInfo
+            event.save()
+        elif event.currentProcess == 'D&A' and sub_action == 'NEXT':
+            event.currentProcess = "Report"
+            event.save()
+            repCount = len(event.reporters.all())
+        elif event.currentProcess == 'Report' and sub_action == 'Report':
+            event.reporters.clear()
+            for rep in Users.objects.filter():
+                if rep.reporter and request.POST.get(rep.user.username):
+                    u = User.objects.get(username=rep.user.username)
+                    event.reporters.add(u)
+            event.save()
+            repCount = len(event.reporters.all())
+        elif event.currentProcess == 'Report' and sub_action == 'NEXT':
+            event.currentProcess = "Recovery"
+            event.save()
+        elif event.currentProcess == 'Recovery' and sub_action == 'Recovery':
+            event.save()
+        elif event.currentProcess == 'Recovery' and sub_action == 'NEXT':
+            event.currentProcess = "LL"
+            event.save()
+        elif event.currentProcess == 'LL' and sub_action == 'LL':
+            event.save()
+        elif event.currentProcess == 'Recovery' and sub_action == 'NEXT':
+            event.currentProcess = "LL"
+            event.save()
+        else:
+            event.save()
+
+    # Redirect to diffent web based on currentProcess
+    if event.requestUser == userinfo or userinfo.position == 'admin':
         if userinfo.position == 'admin':
-            return render(request, 'eventInfoAdmin.html', {'picture': userinfo.picture,
-                                                           'event': event})
-        return render(request, 'eventInfo.html', {'picture': userinfo.picture,
-                                                  'event': event})
+            if event.currentProcess == "D&A":
+                return render(request, 'eventDAAdmin.html', {'picture': userinfo.picture,
+                                                             'event': event})
+            elif event.currentProcess == "Report":
+                return render(request, 'eventReportAdmin.html', {'picture': userinfo.picture,
+                                                                 'event': event,
+                                                                 'repCount': repCount,
+                                                                 'reporters': event.reporters.all()})
+            elif event.currentProcess == "Recovery":
+                return render(request, 'eventRecoveryAdmin.html', {'picture': userinfo.picture,
+                                                                   'event': event})
+            elif event.currentProcess == "LL":
+                return render(request, 'eventLLAdmin.html', {'picture': userinfo.picture,
+                                                             'event': event})
+            else:
+                return redirect('/')
+        if event.currentProcess == "D&A":
+            return render(request, 'eventDA.html', {'picture': userinfo.picture,
+                                                    'event': event})
+        elif event.currentProcess == "Report":
+            return render(request, 'eventReport.html', {'picture': userinfo.picture,
+                                                        'event': event,
+                                                        'repCount': repCount,
+                                                        'reporters': event.reporters.all()})
+        elif event.currentProcess == "Recovery":
+            return render(request, 'eventRecovery.html', {'picture': userinfo.picture,
+                                                          'event': event})
+        elif event.currentProcess == "LL":
+            return render(request, 'eventLL.html', {'picture': userinfo.picture,
+                                                    'event': event})
+        else:
+            return redirect('/')
     else:
         return redirect('/')
-
 
 @login_required
 def event_list(request):
@@ -223,8 +300,15 @@ def risk_level_assessment(request):
 def settings_table(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
+    action = request.POST.get('sub_action')
+    event_id = request.POST.get('sub_id')
+    event = Event.objects.get(id=event_id)
+    reporters = Users.objects.filter(reporter=True)
     if userinfo.position == 'admin':
-        return render(request, 'settingsTable.html', {'picture': userinfo.picture})
+        return render(request, 'settingsTable.html', {'picture': userinfo.picture,
+                                                      'action': action,
+                                                      'event': event,
+                                                      'reporters': reporters})
     else:
         return redirect('/')
 

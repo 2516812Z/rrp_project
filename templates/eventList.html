@@ -70,7 +70,7 @@ MAIN \ SECURITY EVENT \ EVENT LIST (ADMIN)
             {% else %}
             <td><button class="layui-btn layui-btn-sm layui-btn-radius">{{ eve.riskLevel }}</button></td>
             {% endif %}
-            {% if 'C&A' in eve.currentProcess %}
+            {% if 'D&A' in eve.currentProcess %}
             <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-red">{{ eve.currentProcess }}</button></td>
             {% elif 'Report' in eve.currentProcess %}
             <td><button class="layui-btn layui-btn-sm layui-btn-radius btn-orange">{{ eve.currentProcess }}</button></td>

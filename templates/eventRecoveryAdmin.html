@@ -1,0 +1,192 @@
+{% extends 'baseAdmin.html' %}
+{% load static %}
+
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'assets/css/process.css' %}" />
+{% endblock %}
+
+{% block title_block %}
+EventInfo
+{% endblock %}
+
+{% block block_top %}
+MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
+{% endblock %}
+
+{% block userinfo %}
+<img src="{{ MEDIA_URL }}{{ picture }}" class="layui-nav-img">
+{{ user.username }}
+{% endblock %}
+
+{% block body_block %}
+<h1 class="page_title">Security Event Detail</h1>
+<div class="process-wrapper">
+    <div id="progress-bar-container" >
+        <ul>
+            <li class="step step01 active"><div class="step-inner">Request</div></li>
+            <li class="step step02 active"><div class="step-inner">Detection & Analysis</div></li>
+            <li class="step step03 active"><div class="step-inner">Report</div></li>
+            <li class="step step04"><div class="step-inner">Recovery</div></li>
+            <li class="step step05"><div class="step-inner">Lessons Learned</div></li>
+        </ul>
+
+        <div id="line">
+            <div id="line-progress" style="width: 53%"></div>
+        </div>
+    </div>
+
+    <div id="progress-content-section">
+        <div class="section-content discovery">
+            <h2>Request</h2>
+            <div class="layui-row">
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RequestTime:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.requestTime }}</p></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RequestUser:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.requestUser.user.username }}</p></div></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>UserAsset:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.userAsset.assetName }}</p></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>AssetType:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.userAsset.assetType }}</p></div></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md3"><h3>Description:</h3></div>
+                <div class="layui-col-md9"><p style="word-wrap:break-word">{{ event.description }}</p></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md3"><h3>Evidence:</h3></div>
+                <div class="layui-col-md9"><p>As Follow</p></div>
+            </div>
+            <div class="layui-carousel" id="evidence_p">
+                <div carousel-item>
+                    <div><img src="{{ MEDIA_URL }}{{ picture }}" /></div>
+                    <div><img src="{{ MEDIA_URL }}{{ picture }}" /></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-content strategy">
+            <h2>Detection & Analysis</h2>
+            <div class="layui-row">
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RansomwareName:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.ransomwareName }}</p></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RansomwareType:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.ransomwareType }}</p></div></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RansomAmount:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.ransomAmount }}</p></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>Duration:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.duration }}</p></div></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RiskLevel:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.riskLevel }}</p></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>IsKnown:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.isKnown }}</p></div></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RecoveryType:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.recoveryType }}</p></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>RecoveryTime:</h3></div></div>
+                <div class="layui-col-xs3"><div class="grid-demo"><p>{{ event.recoveryTime}}</p></div></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md3"><h3>RecoveryInfo:</h3></div>
+                <div class="layui-col-md9"><p style="word-wrap:break-word">{{ event.recoveryInfo }}</p></div>
+            </div>
+            <div style="margin: 20px">
+                <form class="layui-form " method="post" action="/settings_table/">
+                    {% csrf_token %}
+                    <input type="hidden" value="D&A" name="sub_action" >
+                    <input type="hidden" value="{{ event.id }}" name="sub_id" >
+                    <button type="submit" class="layui-btn layui-btn-fluid">Update Information</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="section-content creative active">
+            <h2>Report</h2>
+            {% if repCount == 0 %}
+                <div class="layui-row">
+                    <div class="layui-col-md3"><h3>Notice:</h3></div>
+                    <div class="layui-col-md9" style="margin-bottom: 20px"><p>Please click the follow button and confirm the users to be notified!</p></div>
+                </div>
+                <div style="margin: 20px">
+                    <form class="layui-form " method="post" action="/settings_table/">
+                        {% csrf_token %}
+                        <input type="hidden" value="Report" name="sub_action" >
+                        <input type="hidden" value="{{ event.id }}" name="sub_id" >
+                        <button type="submit" class="layui-btn layui-btn-fluid">Confirm the notified user</button>
+                    </form>
+                </div>
+            {% else %}
+                {% for rep in reporters %}
+                <div class="layui-row">
+                    <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>Reporter:</h3></div></div>
+                    <div class="layui-col-xs3"><div class="grid-demo"><p>{{ rep.username }}</p></div></div>
+                    <div class="layui-col-xs3"><div class="grid-demo grid-demo-bg1"><h3>Reporter Email:</h3></div></div>
+                    <div class="layui-col-xs3"><div class="grid-demo"><p>{{ rep.email }}</p></div></div>
+                </div>
+                {% endfor %}
+                <div style="margin: 20px">
+                    <form class="layui-form " method="post" action="/settings_table/">
+                        {% csrf_token %}
+                        <input type="hidden" value="Report" name="sub_action" >
+                        <input type="hidden" value="{{ event.id }}" name="sub_id" >
+                        <button type="submit" class="layui-btn layui-btn-fluid">Confirm the notified user</button>
+                    </form>
+                </div>
+                <div style="margin: 20px">
+                    <form class="layui-form " method="post" action="/event_info/{{ event.id }}">
+                        {% csrf_token %}
+                        <input type="hidden" value="NEXT" name="sub_action" >
+                        <button type="submit" class="layui-btn layui-btn-fluid layui-btn-danger">Click to the next process</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="section-content production">
+            <h2>Recovery</h2>
+            <div class="layui-row">
+                <div class="layui-col-md3"><h3>Notice:</h3></div>
+                <div class="layui-col-md9" style="margin-bottom: 20px"><p>The process has not yet arrived.</p></div>
+            </div>
+        </div>
+
+        <div class="section-content analysis">
+            <h2>Lessons Learned</h2>
+            <div class="layui-row">
+                <div class="layui-col-md3"><h3>Notice:</h3></div>
+                <div class="layui-col-md9" style="margin-bottom: 20px"><p>The process has not yet arrived.</p></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block body_bottom %}
+*** Welcome ! ***
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/process.js' %}"></script>
+<script>
+    layui.use('carousel', function(){
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#evidence_p'
+            ,width: '100%' //设置容器宽度
+            ,height: '250px'
+            ,arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });
+</script>
+{% endblock %}

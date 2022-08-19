@@ -11,6 +11,7 @@ class Users(models.Model):
     picture = models.ImageField(upload_to='profile_images', blank=True)
     position = models.CharField(max_length=MAX_POSITION_LENGTH, null=True)
     superior = models.CharField(max_length=MAX_USERNAME_LENGTH, null=True)
+    reporter = models.BooleanField(default=False)
 
     class Meta:
         app_label = 'rrp'
@@ -62,6 +63,7 @@ class RiskLevelAssessment(models.Model):
     def __str__(self):
         return self.riskLevel
 
+
 class Event(models.Model):
     MAX_OTHER_LENGTH = 30
     MAX_RNAME_LENGTH = 30
@@ -85,12 +87,17 @@ class Event(models.Model):
     recoveryType = models.CharField(max_length=MAX_OTHER_LENGTH, default='Non')
     recoveryTime = models.IntegerField(null=True)
     recoveryInfo = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
+    Handler = models.CharField(max_length=MAX_OTHER_LENGTH, null=True)
     # Event Report
-    reporters = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
+    reporters = models.ManyToManyField(User, blank=True)
+    #reporters = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
     # Event Recovery
     records = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
     # Event AF-Activity
     currentProcess = models.CharField(max_length=MAX_OTHER_LENGTH, default='C&A')
+
+    def reporter_list(self):
+        return ','.join([i.username for i in self.reporters.all()])
 
     class Meta:
         app_label = 'rrp'

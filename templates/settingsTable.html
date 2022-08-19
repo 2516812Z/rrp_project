@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block title_block %}
-Settings
+Settings - {{ action }}
 {% endblock %}
 
 {% block block_top %}
@@ -18,10 +18,124 @@ MAIN \ SETTINGS \ SETTINGS TABLE
 {% endblock %}
 
 {% block body_block %}
-<h1 class="page_title">Settings Table</h1>
+<h1 class="page_title">Settings Table - {{ action }}</h1>
+<div class="request_frame" style="padding: 20px 0px;">
+    {% if action == 'D&A'%}
+    <form class="layui-form " method="post" action="/event_info/{{ event.id }}">
+
+        {% csrf_token %}
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">RansomwareName</label>
+            <div class="layui-input-block" style="width: 60%">
+                <input type="text" name="ransomwareName" required  lay-verify="required" placeholder="{{ event.ransomwareName }}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">RansomwareType</label>
+            <div class="layui-input-block" style="width: 60%">
+                <select name="ransomwareType">
+                    <option value="">Please select</option>
+                    <option value="Crypt">Crypt</option>
+                    <option value="Locker">Locker</option>
+                    <option value="Shock">Shock</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">RansomAmount</label>
+            <div class="layui-input-block" style="width: 60%">
+                <input type="text" name="ransomAmount" required  lay-verify="required" placeholder="{{ event.ransomAmount }}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Duration</label>
+            <div class="layui-input-block" style="width: 60%">
+                <input type="text" name="duration" required  lay-verify="required" placeholder="{{ event.duration }}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">IsKnown</label>
+            <div class="layui-input-block">
+                {% if event.isKnown %}
+                <input type="radio" name="isKnown" value="True" title="True" checked>
+                <input type="radio" name="isKnown" value="False" title="False">
+                {% else %}
+                <input type="radio" name="isKnown" value="True" title="True">
+                <input type="radio" name="isKnown" value="False" title="False" checked>
+                {% endif%}
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">RecoveryType(E)</label>
+            <div class="layui-input-block" style="width: 60%">
+                <select name="recoveryType">
+                    <option value="">Please select</option>
+                    <option value="Full Recovery">Full Recovery</option>
+                    <option value="Partial Recovery">Partial Recovery</option>
+                    <option value="Unrecoverable">Unrecoverable</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">RecoveryTime(E)</label>
+            <div class="layui-input-block" style="width: 60%">
+                <input type="text" name="recoveryTime" required  lay-verify="required" placeholder="Please enter an estimated value" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">RecoveryInfo</label>
+            <div class="layui-input-block" style="width: 60%">
+                <textarea name="recoveryInfo" placeholder="Please enter some estimated information" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" >Submit</button>
+                <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+            </div>
+        </div>
+    </form>
+    {% elif action == 'Report' %}
+    <form class="layui-form " method="post" action="/event_info/{{ event.id }}">
+
+        {% csrf_token %}
+        {% for reporter in reporters %}
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="color: #BD9C37;font-weight: bold;width: 200px">User : {{ reporter.user.username }}</br>Email : {{ reporter.user.email }}</label>
+            <div class="layui-input-block"><input type="checkbox" name="{{ reporter.user.username }}" lay-skin="switch" value="True"></div>
+        </div>
+        {% endfor %}
+
+        <div class="layui-form-item" >
+            <div class="layui-input-block" >
+                <input type="hidden" value="Report" name="sub_action" >
+                <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" >Submit</button>
+                <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+            </div>
+        </div>
+    </form>
+    {% elif action == 'Recovery' %}
+    {% elif action == 'LL'%}
+    {% else %}
+    <h3>Nothing</h3>
+    {% endif %}
+</div>
 
 {% endblock %}
 
 {% block body_bottom %}
 *** Welcome ! ***
 {% endblock %}
+
+{% block script %}
+{% endblock%}

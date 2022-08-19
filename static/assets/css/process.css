@@ -59,7 +59,7 @@ h1 {
 /* --- Start progress bar --- */
 
 .process-wrapper {
-    margin:150px;
+    margin: 60px 80px;
     max-width:1080px;
 }
 
@@ -93,7 +93,7 @@ h1 {
 }
 
 #progress-bar-container li.active:before, #progress-bar-container li:hover:before {
-    border:solid 2px #444;
+    border:solid 2px #393D49;
 }
 
 #progress-bar-container li {
@@ -159,7 +159,7 @@ h1 {
 
 #progress-bar-container #line-progress {
     content:" ";
-    width:3%;
+    width:28%;
     height:100%;
     background: #207893;
     background: -moz-linear-gradient(left, #207893 0%, #2ea3b7 100%);
@@ -173,28 +173,40 @@ h1 {
 }
 
 #progress-content-section {
-    width:90%;
     margin: auto;
-    background: #f3f3f3;
+    background: #FBF9F9;
     border-radius: 4px;
 }
 
 #progress-content-section .section-content {
-    padding:30px 40px;
+    padding:10px;
     text-align:center;
 }
 
 #progress-content-section .section-content h2 {
-    font-size:17px;
+    font-size:25px;
     text-transform:uppercase;
     color:#333;
-    letter-spacing:1px;
+    letter-spacing:4px;
+    font-weight: bold;
+    padding:20px;
+}
+
+#progress-content-section .section-content h3 {
+    font-size:15px;
+    line-height:1.8em;
+    color:#BD9C37;
+    text-align: right;
+    font-weight: bold;
+    padding-right: 10px;
 }
 
 #progress-content-section .section-content p {
     font-size:15px;
     line-height:1.8em;
-    color:#777;
+    color:#333;
+    text-align: left;
+    padding-left: 10px;
 }
 
 #progress-content-section .section-content {
@@ -219,36 +231,6 @@ h1 {
         transform:translateY(0px);
         opacity:1;
     }
-}
-
-/* --- ORANGE --- */
-
-body.blue #color .drop {
-    background: #207893;
-    background: -moz-linear-gradient(45deg, #207893 25%, #2ea3b7 100%);
-    background: -webkit-linear-gradient(45deg, #207893 25%,#2ea3b7 100%);
-    background: linear-gradient(45deg, #207893 25%,#2ea3b7 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#207893', endColorstr='#2ea3b7',GradientType=1 );
-}
-
-body.blue h1 {
-    background: rgb(206,119,68);
-    background: -moz-linear-gradient(left, rgba(206,119,68,1) 0%, rgba(230,125,36,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(206,119,68,1) 0%,rgba(230,125,36,1) 100%);
-    background: linear-gradient(to right, rgba(206,119,68,1) 0%,rgba(230,125,36,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce7744', endColorstr='#e67d24',GradientType=1 );
-}
-
-body.blue li.active:after {
-    background:#e67d24;
-}
-
-body.blue #line-progress {
-    background: rgb(206,119,68);
-    background: -moz-linear-gradient(left, rgba(206,119,68,1) 0%, rgba(230,125,36,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(206,119,68,1) 0%,rgba(230,125,36,1) 100%);
-    background: linear-gradient(to right, rgba(206,119,68,1) 0%,rgba(230,125,36,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce7744', endColorstr='#e67d24',GradientType=1 );
 }
 
 /* --- SOURCE --- */
