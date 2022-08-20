@@ -10,6 +10,8 @@ from rrp.models import *
 def populate():
 
 
+
+
     monsters = [
         {'name': "Pikachu", 'picture': "/monster_images/Pikachu.png"},
         {'name': "Eevee", 'picture': "/monster_images/eevee.png"},

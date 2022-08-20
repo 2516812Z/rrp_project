@@ -19,12 +19,18 @@ Register
 <div>
     <form id="register_form" style="height: 630px;" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
         <h3  class="login_title">SIGN UP</h3></br>
-
         {% csrf_token %}
-        <div class="login_label">{{ user_form.as_p }}</div></br>
+<!--        <div class="login_label">{{ user_form.as_p }}</div></br>-->
 
-        <div class="login_label login_re">{{ profile_form.as_p }}</div></br>
-
+<!--        <div class="login_label login_re">{{ profile_form.as_p }}</div></br>-->
+        <label for="username" class="login_label"><i class="layui-icon layui-icon-username" style="font-size:20px"></i>&nbsp;&nbsp;Username</label></br></br>
+        <input name="username" type="text" placeholder="  Email or Phone" id="username" class="login_input"></br></br>
+        </br>
+        <label for="password" class="login_label"><i class="layui-icon layui-icon-password" style="font-size:20px"></i>&nbsp;&nbsp;Password</label></br></br>
+        <input name="password" type="password" placeholder="  Password" id="password" class="login_input"></br></br>
+        <label for="reg_pic" class="login_label"><i class="layui-icon layui-icon-picture" style="font-size:20px"></i>&nbsp;&nbsp;Picture</label></br></br>
+        <input type="file" name="file" id="reg_pic">
+        </br>{{ reg_message }}</br></br>
         <input type="submit" class="layui-btn layui-btn-radius layui-btn-danger login_btn" value="Register" />
         </br></br></br></br>
         <span class="login_re">Already had an account? Go to&nbsp;&nbsp;<a href="/login" class="layui-btn layui-btn-sm layui-btn-radius">LOGIN</a></span>

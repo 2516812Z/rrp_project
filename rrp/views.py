@@ -12,29 +12,25 @@ from django.utils import timezone
 
 def register(request):
     registered = False
+    reg_message = ''
     if request.method == 'POST':
-        user_form = UserForm(request.POST)
-        profile_form = UserProfileForm(request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if len(User.objects.filter(username=username)) < 1:
+            user = User.objects.create(username=username)
+            user.set_password(password)
             user.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
-            profile.save()
+            users = Users.objects.create(user=user)
+            if 'file' in request.FILES:
+                users.picture = request.FILES['file']
+            users.save()
             registered = True
         else:
-            print(user_form.errors, profile_form.errors)
-    else:
-        user_form = UserForm()
-        profile_form = UserProfileForm()
-    return render(request, 'register.html',
-                  context={'user_form': user_form,
-                           'profile_form': profile_form,
-                           'registered': registered})
+            reg_message = "Username has already been registered!"
+            print(reg_message)
+
+    return render(request, 'register.html', {'registered': registered,
+                                             'reg_message': reg_message})
 
 def user_login(request):
     if request.method == 'POST':
