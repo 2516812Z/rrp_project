@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.decorators.http import *
 from django.contrib.auth.models import User
 from rrp.forms import UserForm, UserProfileForm
-from rrp.models import Users, Ransomware, Asset, RiskLevelAssessment, Event
+from rrp.models import Users, Ransomware, Asset, RiskLevelAssessment, Event, Information
 from django.utils import timezone
 
 
@@ -67,9 +67,26 @@ def user_logout(request):
 def index(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
+    user_cirt = Users.objects.filter(cirt=True)
+    messages = Information.objects.filter()
     if userinfo.position == 'admin':
-        return render(request, 'indexAdmin.html', {'picture': userinfo.picture})
-    return render(request, 'index.html', {'picture': userinfo.picture})
+        return render(request, 'indexAdmin.html', {'picture': userinfo.picture,
+                                                   'cirts': user_cirt,
+                                                   'messages': messages})
+    return render(request, 'index.html', {'picture': userinfo.picture,
+                                          'cirts': user_cirt,
+                                          'messages': messages})
+
+@login_required
+def index_info(request, info_id):
+    user = request.user
+    userinfo = Users.objects.get(user=user)
+    meg = Information.objects.get(id=info_id)
+    if userinfo.position == 'admin':
+        return render(request, 'infoAdmin.html', {'picture': userinfo.picture,
+                                                   'meg': meg})
+    return render(request, 'info.html', {'picture': userinfo.picture,
+                                          'meg': meg})
 
 @login_required
 def userprofile(request):

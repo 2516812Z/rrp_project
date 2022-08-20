@@ -11,6 +11,7 @@ class Users(models.Model):
     picture = models.ImageField(upload_to='profile_images', blank=True)
     position = models.CharField(max_length=MAX_POSITION_LENGTH, null=True)
     superior = models.CharField(max_length=MAX_USERNAME_LENGTH, null=True)
+    cirt = models.BooleanField(default=False)
     reporter = models.BooleanField(default=False)
 
     class Meta:
@@ -79,19 +80,19 @@ class Event(models.Model):
     ransomwareType = models.CharField(max_length=MAX_OTHER_LENGTH, null=True)
     ransomAmount = models.IntegerField(null=True)
     duration = models.IntegerField(null=True)
-    description = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
+    description = models.TextField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
     evidence = models.ImageField(upload_to='evidence', blank=True)
     # Event Check & Analysis
     riskLevel = models.CharField(max_length=MAX_OTHER_LENGTH, default='L1')
     isKnown = models.BooleanField(default=False)
     recoveryType = models.CharField(max_length=MAX_OTHER_LENGTH, default='Non')
     recoveryTime = models.IntegerField(null=True)
-    recoveryInfo = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
+    recoveryInfo = models.TextField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
     handler = models.CharField(max_length=MAX_OTHER_LENGTH, null=True)
     # Event Report
     reporters = models.ManyToManyField(User, blank=True)
     # Event Recovery
-    records = models.CharField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
+    records = models.TextField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
     # Event AF-Activity
     currentProcess = models.CharField(max_length=MAX_OTHER_LENGTH, default='C&A')
 
@@ -103,6 +104,21 @@ class Event(models.Model):
 
     def __str__(self):
         return self.requestUser.user.username
+
+class Information(models.Model):
+    MAX_OTHER_LENGTH = 30
+    MAX_INFO_LENGTH = 1000
+
+    # Event Request
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=MAX_OTHER_LENGTH, null=True)
+    info = models.TextField(max_length=MAX_INFO_LENGTH, null=True)
+
+    class Meta:
+        app_label = 'rrp'
+
+    def __str__(self):
+        return self.title
 
 
 

@@ -58,3 +58,31 @@
     background-color: #8e44ad;
 }
 
+.index_s{
+    margin: 10px 10px;
+    background: rgba(251, 249, 249, 0.6);
+    border-radius: 4px;
+    box-shadow:0 2px 13px -1px rgba(0,0,0,0.3);
+    padding: 0px 10px 10px 10px;
+}
+
+.info_title{
+    font-size:20px;
+    line-height:1.8em;
+    color:#BD9C37;
+    text-align: right;
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.info_title_p{
+    font-size:20px;
+    line-height:1.8em;
+    color:#333;
+    text-align: left;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+
+

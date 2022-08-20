@@ -35,4 +35,5 @@ urlpatterns = [
     path('role/', views.role, name='role'),
     path('risk_level_assessment', views.risk_level_assessment, name='risk_level_assessment'),
     path('settings_table/', views.settings_table, name='settings_table'),
+    path('info/<info_id>', views.index_info, name='index_info')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

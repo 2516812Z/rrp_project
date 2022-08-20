@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block css_block %}
+<link rel="stylesheet" href="{% static 'assets/css/process.css' %}" />
 {% endblock %}
 
 {% block title_block %}
@@ -19,8 +20,116 @@ MAIN
 
 {% block body_block %}
 
+<div class="layui-row">
+
+    <div class="layui-col-xs6" style="width: 50%;height: 380px">
+        <h1 class="page_title">CIRT</h1>
+        <div class="index_s">
+            <div class="layui-row">
+                <div class="layui-col-md4">
+                    <div class="grid-demo grid-demo-bg1" style="letter-spacing: 1px;font-weight: bold;text-transform: uppercase;color: #373837;font-weight: bold;margin: 20px 20px">
+                        StaffName</div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="grid-demo" style="letter-spacing: 1px;font-weight: bold;text-transform: uppercase;color: #373837;font-weight: bold;margin: 20px 20px">
+                        E-Mail</div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="grid-demo grid-demo-bg1" style="letter-spacing: 1px;font-weight: bold;text-transform: uppercase;color: #373837;font-weight: bold;margin: 20px 20px">
+                        Position</div>
+                </div>
+                <hr class="layui-border-cyan">
+                {% for cirt in cirts %}
+                <div class="layui-col-md4">
+                    <div class="grid-demo grid-demo-bg1" style="color: #BD9C37;font-weight: bold;margin: 13px 20px">
+                        {{ cirt.user.username }}</div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="grid-demo" style="color: #373837;font-weight: bold;margin: 13px 20px">
+                        {{ cirt.user.email }}</div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="grid-demo grid-demo-bg1" style="color: #373837;font-weight: bold;margin: 13px 20px">
+                        {{ cirt.position }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-xs6" style="width: 50%;height: 380px">
+        <h1 class="page_title">Information</h1>
+        <div class="index_s">
+            <div class="layui-row">
+                <div class="layui-col-md4">
+                    <div class="grid-demo grid-demo-bg1" style="letter-spacing: 1px;font-weight: bold;text-transform: uppercase;color: #373837;font-weight: bold;margin: 20px 20px">
+                        No</div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="grid-demo" style="letter-spacing: 1px;font-weight: bold;text-transform: uppercase;color: #373837;font-weight: bold;margin: 20px 20px">
+                        Title</div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="grid-demo grid-demo-bg1" style="letter-spacing: 1px;font-weight: bold;text-transform: uppercase;color: #373837;font-weight: bold;margin: 20px 20px">
+                        Detail</div>
+                </div>
+                <hr class="layui-border-cyan">
+                {% for meg in messages %}
+                <div class="layui-col-md4">
+                    <div class="grid-demo grid-demo-bg1" style="color: #373837;font-weight: bold;margin: 13px 20px">
+                        {{ meg.id }}</div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="grid-demo" style="color: #BD9C37;font-weight: bold;margin: 13px 20px">
+                        {{ meg.title }}</div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="grid-demo grid-demo-bg1" style="color: #373837;font-weight: bold;margin: 13px 20px">
+                        <a href="/info/{{ meg.id }}" class="layui-btn layui-btn-sm layui-btn-radius">Check</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<h1 class="page_title">Ransomware Recovery Process</h1>
+<div class="layui-row" style="padding-top: 3%">
+    <div class="process-wrapper">
+        <div id="progress-bar-container" >
+            <ul>
+                <li class="step step01 active"><div class="step-inner">Request</div></li>
+                <li class="step step02 active"><div class="step-inner">Detection & Analysis</div></li>
+                <li class="step step03 active"><div class="step-inner">Report</div></li>
+                <li class="step step04 active"><div class="step-inner">Recovery</div></li>
+                <li class="step step05 active"><div class="step-inner">Lessons Learned</div></li>
+            </ul>
+
+            <div id="line">
+                <div id="line-progress" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block body_bottom %}
 *** Welcome ! ***
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/process.js' %}"></script>
+<script>
+    layui.use('carousel', function(){
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#evidence_p'
+            ,width: '100%' //设置容器宽度
+            ,height: '250px'
+            ,arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });
+</script>
 {% endblock %}
