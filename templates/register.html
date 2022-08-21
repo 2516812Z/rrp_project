@@ -11,15 +11,16 @@ Register
 {% block body_block %}
 {% if registered %}
 <div>
-    <h3  class="login_title">Register</h3>
-    <p>Thank you for registering!</p>
-    <p><a href="{% url 'login' %}">Return to the login page.</a></p>
+    <h3 class="login_title">SIGN UP</h3>
+    <p class="login_title" style="font-size:15px">Thank you for registering!</p>
+    <p class="login_title" style="font-size:15px">Return to the <a href="{% url 'login' %}" style="color:#FF5722;text-decoration:underline">login</a> page.</p>
 </div>
 {% else %}
 <div>
     <form id="register_form" style="height: 630px;" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
         <h3 class="login_title" style="font-size:30px">SIGN UP</h3></br>
         {% csrf_token %}
+
         <label for="username" class="login_label" style="font-size:15px"><i class="layui-icon layui-icon-username" style="font-size:15px"></i>&nbsp;&nbsp;Username</label></br></br>
         <input name="username" type="text" placeholder="  Name" id="username" class="login_input" style="height:30px"></br></br>
         <label for="password" class="login_label" style="font-size:15px"><i class="layui-icon layui-icon-password" style="font-size:15px"></i>&nbsp;&nbsp;Password</label></br></br>

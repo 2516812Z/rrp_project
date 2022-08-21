@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block css_block %}
+{% endblock %}
+
+{% block title_block %}
+Main
+{% endblock %}
+
+{% block block_top %}
+MAIN
+{% endblock %}
+
+{% block userinfo %}
+<img src="{{ MEDIA_URL }}{{ picture }}" class="layui-nav-img">
+{{ user.username }}
+{% endblock %}
+
+{% block body_block %}
+<h1 class="page_title">Information - {{ meg.title }}</h1>
+<div class="request_frame">
+    <div class="layui-row">
+        <div class="layui-col-xs6 layui-col-md4">
+            <div class="grid-demo info_title" >Title:</div>
+        </div>
+        <div class="layui-col-xs12 layui-col-md8">
+            <div class="grid-demo grid-demo-bg1 info_title_p">{{ meg.title }}</div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-xs6 layui-col-md4">
+            <div class="grid-demo info_title">Detail:</div>
+        </div>
+        <div class="layui-col-xs12 layui-col-md8">
+            <div class="grid-demo grid-demo-bg1 info_title_p">{{ meg.info }}</div>
+        </div>
+    </div>
+    <div style="margin: 20px"><a href="/"><button class="layui-btn layui-btn-fluid">Back</button></a></div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

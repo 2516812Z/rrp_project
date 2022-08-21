@@ -21,6 +21,7 @@
     font-weight: bold;
     color:#393D49;
     text-align: center;
+    letter-spacing: 4px;
 }
 
 .login_label{
@@ -50,4 +51,10 @@
 .login_re{
     font-size:15px;
     font-weight: bold;
+}
+
+.my_footer{
+    font-size:10px;
+    letter-spacing: 4px;
+    color:#393D49;
 }
