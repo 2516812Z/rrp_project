@@ -16,9 +16,11 @@ def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        email = request.POST.get('email')
         if len(User.objects.filter(username=username)) < 1:
             user = User.objects.create(username=username)
             user.set_password(password)
+            user.email = email
             user.save()
             users = Users.objects.create(user=user)
             if 'file' in request.FILES:

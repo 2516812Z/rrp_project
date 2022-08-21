@@ -9,8 +9,13 @@ from rrp.models import *
 
 def populate():
 
-
-
+    User = [
+        {},
+        {},
+        {},
+        {},
+        {}
+    ]
 
     monsters = [
         {'name': "Pikachu", 'picture': "/monster_images/Pikachu.png"},

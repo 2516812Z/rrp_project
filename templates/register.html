@@ -18,17 +18,15 @@ Register
 {% else %}
 <div>
     <form id="register_form" style="height: 630px;" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
-        <h3  class="login_title">SIGN UP</h3></br>
+        <h3 class="login_title" style="font-size:30px">SIGN UP</h3></br>
         {% csrf_token %}
-<!--        <div class="login_label">{{ user_form.as_p }}</div></br>-->
-
-<!--        <div class="login_label login_re">{{ profile_form.as_p }}</div></br>-->
-        <label for="username" class="login_label"><i class="layui-icon layui-icon-username" style="font-size:20px"></i>&nbsp;&nbsp;Username</label></br></br>
-        <input name="username" type="text" placeholder="  Email or Phone" id="username" class="login_input"></br></br>
-        </br>
-        <label for="password" class="login_label"><i class="layui-icon layui-icon-password" style="font-size:20px"></i>&nbsp;&nbsp;Password</label></br></br>
-        <input name="password" type="password" placeholder="  Password" id="password" class="login_input"></br></br>
-        <label for="reg_pic" class="login_label"><i class="layui-icon layui-icon-picture" style="font-size:20px"></i>&nbsp;&nbsp;Picture</label></br></br>
+        <label for="username" class="login_label" style="font-size:15px"><i class="layui-icon layui-icon-username" style="font-size:15px"></i>&nbsp;&nbsp;Username</label></br></br>
+        <input name="username" type="text" placeholder="  Name" id="username" class="login_input" style="height:30px"></br></br>
+        <label for="password" class="login_label" style="font-size:15px"><i class="layui-icon layui-icon-password" style="font-size:15px"></i>&nbsp;&nbsp;Password</label></br></br>
+        <input name="password" type="password" placeholder="  Password" id="password" class="login_input" style="height:30px"></br></br>
+        <label for="email" class="login_label" style="font-size:15px"><i class="layui-icon layui-icon-username" style="font-size:15px"></i>&nbsp;&nbsp;Email</label></br></br>
+        <input name="email" type="text" placeholder="  Email" id="email" class="login_input" style="height:30px"></br></br>
+        <label for="reg_pic" class="login_label" style="font-size:15px"><i class="layui-icon layui-icon-picture" style="font-size:15px"></i>&nbsp;&nbsp;Picture</label></br></br>
         <input type="file" name="file" id="reg_pic">
         </br>{{ reg_message }}</br></br>
         <input type="submit" class="layui-btn layui-btn-radius layui-btn-danger login_btn" value="Register" />
