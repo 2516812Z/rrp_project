@@ -64,14 +64,6 @@ class RiskLevelAssessment(models.Model):
     def __str__(self):
         return self.riskLevel
 
-class Evidence(models.Model):
-    MAX_PIC = 100
-
-    id = models.AutoField(primary_key=True)
-    eventId = models.IntegerField(null=True)
-    picURL = models.ImageField(upload_to='evidence_images', max_length=MAX_PIC, blank=True)
-
-
 class Event(models.Model):
     MAX_OTHER_LENGTH = 30
     MAX_RNAME_LENGTH = 30
@@ -88,7 +80,6 @@ class Event(models.Model):
     ransomAmount = models.IntegerField(null=True)
     duration = models.IntegerField(null=True)
     description = models.TextField(max_length=MAX_DESCRIPTION_LENGTH, null=True)
-    evidence = models.ForeignKey(Evidence, blank=True, on_delete=models.CASCADE, default=None)
     # Event Check & Analysis
     riskLevel = models.CharField(max_length=MAX_OTHER_LENGTH, default='L1')
     isKnown = models.BooleanField(default=False)
@@ -127,6 +118,18 @@ class Information(models.Model):
     def __str__(self):
         return self.title
 
+class Evidence(models.Model):
+    MAX_PIC = 100
+
+    id = models.AutoField(primary_key=True)
+    picURL = models.ImageField(upload_to='evidence_images', blank=True)
+    eventId = models.ForeignKey(Event, null=True, on_delete=models.CASCADE, default=None)
+
+    class Meta:
+        app_label = 'rrp'
+
+    def __str__(self):
+        return str(self.id)
 
 
 

@@ -56,12 +56,15 @@ MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
             </div>
             <div class="layui-row">
                 <div class="layui-col-md3"><h3>Evidence:</h3></div>
-                <div class="layui-col-md9"><p>As Follow</p></div>
+                <div class="layui-col-md9"><p>As Follow <label style="color:#FF5722">(Click on the picture to enlarge it to view)</label></p></div>
             </div>
             <div class="layui-carousel" id="evidence_p">
                 <div carousel-item>
-                    <div><img src="{{ MEDIA_URL }}{{ picture }}" /></div>
-                    <div><img src="{{ MEDIA_URL }}{{ picture }}" /></div>
+                    {% if allevi %}
+                    {% for evi in allevi %}
+                    <div ><img src="{{ MEDIA_URL }}{{ evi.picURL }}" style="height: 200px"/></div>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.decorators.http import *
 from django.contrib.auth.models import User
 from rrp.forms import UserForm, UserProfileForm
-from rrp.models import Users, Ransomware, Asset, RiskLevelAssessment, Event, Information
+from rrp.models import Users, Ransomware, Asset, RiskLevelAssessment, Event, Information, Evidence
 from django.utils import timezone
 
 
@@ -133,12 +133,28 @@ def event_request(request):
             riskLevel = "None"
             isK = False
 
-        currentProcess = "Req"
+        currentProcess = "D&A"
         event = Event.objects.create(requestTime=requestTime, requestUser=requestUser, userAsset=userAsset,
                                      ransomware=ransomware, ransomwareName=ransomwarename, ransomwareType=rType,
                                      ransomAmount=rAmount, duration=duration, description=desc, riskLevel=riskLevel,
                                      isKnown=isK, currentProcess=currentProcess)
         event.save()
+
+        # Evidence
+
+        if 'file1' in request.FILES:
+            evi1 = Evidence.objects.create(picURL=request.FILES['file1'])
+            evi1.eventId = event
+            evi1.save()
+        if 'file2' in request.FILES:
+            evi2 = Evidence.objects.create(picURL=request.FILES['file2'])
+            evi2.eventId = event
+            evi2.save()
+        if 'file3' in request.FILES:
+            evi3 = Evidence.objects.create(picURL=request.FILES['file3'])
+            evi3.eventId = event
+            evi3.save()
+
         return redirect('/event_check')
     else:
         allassets = Asset.objects.filter()
@@ -169,6 +185,7 @@ def event_info(request, event_id):
     event = Event.objects.get(id=event_id)
     sub_action = request.POST.get('sub_action')
     repCount = len(event.reporters.all())
+    allevi = Evidence.objects.filter(eventId=event)
     if request.method == 'POST':
         if event.currentProcess == 'D&A' and sub_action == 'D&A':
             rName = request.POST.get('ransomwareName')
@@ -231,50 +248,60 @@ def event_info(request, event_id):
         if userinfo.position == 'admin':
             if event.currentProcess == "D&A":
                 return render(request, 'eventDAAdmin.html', {'picture': userinfo.picture,
-                                                             'event': event})
+                                                             'event': event,
+                                                             'allevi': allevi})
             elif event.currentProcess == "Report":
                 return render(request, 'eventReportAdmin.html', {'picture': userinfo.picture,
                                                                  'event': event,
+                                                                 'allevi': allevi,
                                                                  'repCount': repCount,
                                                                  'reporters': event.reporters.all()})
             elif event.currentProcess == "Recovery":
                 return render(request, 'eventRecoveryAdmin.html', {'picture': userinfo.picture,
                                                                    'event': event,
+                                                                   'allevi': allevi,
                                                                    'repCount': repCount,
                                                                    'reporters': event.reporters.all()})
             elif event.currentProcess == "LL":
                 return render(request, 'eventLLAdmin.html', {'picture': userinfo.picture,
                                                              'event': event,
+                                                             'allevi': allevi,
                                                              'repCount': repCount,
                                                              'reporters': event.reporters.all()})
             elif event.currentProcess == "Completed":
                 return render(request, 'eventCompletedAdmin.html', {'picture': userinfo.picture,
                                                              'event': event,
+                                                             'allevi': allevi,
                                                              'repCount': repCount,
                                                              'reporters': event.reporters.all()})
             else:
                 return redirect('/')
         if event.currentProcess == "D&A":
             return render(request, 'eventDA.html', {'picture': userinfo.picture,
-                                                    'event': event})
+                                                    'event': event,
+                                                    'allevi': allevi})
         elif event.currentProcess == "Report":
             return render(request, 'eventReport.html', {'picture': userinfo.picture,
                                                         'event': event,
+                                                        'allevi': allevi,
                                                         'repCount': repCount,
                                                         'reporters': event.reporters.all()})
         elif event.currentProcess == "Recovery":
             return render(request, 'eventRecovery.html', {'picture': userinfo.picture,
                                                           'event': event,
+                                                          'allevi': allevi,
                                                           'repCount': repCount,
                                                           'reporters': event.reporters.all()})
         elif event.currentProcess == "LL":
             return render(request, 'eventLL.html', {'picture': userinfo.picture,
                                                     'event': event,
+                                                    'allevi': allevi,
                                                     'repCount': repCount,
                                                     'reporters': event.reporters.all()})
         elif event.currentProcess == "Completed":
             return render(request, 'eventCompleted.html', {'picture': userinfo.picture,
                                                            'event': event,
+                                                           'allevi': allevi,
                                                            'repCount': repCount,
                                                            'reporters': event.reporters.all()})
         else:

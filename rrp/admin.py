@@ -1,5 +1,5 @@
 from django.contrib import admin
-from rrp.models import Users, Event, Ransomware, Asset, RiskLevelAssessment, Information
+from rrp.models import Users, Event, Ransomware, Asset, RiskLevelAssessment, Information, Evidence
 
 class UsersAdmin(admin.ModelAdmin):
     list_display = ('user', 'position', 'superior', 'cirt', 'reporter')
@@ -19,9 +19,13 @@ class RiskLevelAssessmentAdmin(admin.ModelAdmin):
 class InformationAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'info')
 
+class EvidenceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'picURL', 'eventId')
+
 admin.site.register(Users, UsersAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Asset, AssetAdmin)
 admin.site.register(Ransomware, RansomwareAdmin)
 admin.site.register(RiskLevelAssessment, RiskLevelAssessmentAdmin)
 admin.site.register(Information, InformationAdmin)
+admin.site.register(Evidence, EvidenceAdmin)
