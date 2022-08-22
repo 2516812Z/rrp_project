@@ -45,7 +45,7 @@ def user_login(request):
             if user.is_active:
                 print(user)
                 login(request, user)
-                return redirect('/')
+                return redirect('/main')
             else:
                 return HttpResponse("Your Rango account is disabled.")
         else:
@@ -189,7 +189,10 @@ def event_info(request, event_id):
     repCount = len(event.reporters.all())
     allevi = Evidence.objects.filter(eventId=event)
     if request.method == 'POST':
+        print(sub_action)
+        print(event.currentProcess)
         if event.currentProcess == 'D&A' and sub_action == 'D&A':
+            print(22)
             rName = request.POST.get('ransomwareName')
             rType = request.POST.get('ransomwareType')
             rAmount = request.POST.get('ransomAmount')
@@ -277,7 +280,7 @@ def event_info(request, event_id):
                                                              'repCount': repCount,
                                                              'reporters': event.reporters.all()})
             else:
-                return redirect('/')
+                return redirect('/main')
         if event.currentProcess == "D&A":
             return render(request, 'eventDA.html', {'picture': userinfo.picture,
                                                     'event': event,
@@ -307,9 +310,9 @@ def event_info(request, event_id):
                                                            'repCount': repCount,
                                                            'reporters': event.reporters.all()})
         else:
-            return redirect('/')
+            return redirect('/index')
     else:
-        return redirect('/')
+        return redirect('/main')
 
 @login_required
 def event_list(request):
@@ -331,7 +334,7 @@ def asset_value(request):
         return render(request, 'assetValue.html', {'picture': userinfo.picture,
                                                    'allAssets': allassets})
     else:
-        return redirect('/')
+        return redirect('/main')
 
 @login_required
 def ransomware_type(request):
@@ -342,7 +345,7 @@ def ransomware_type(request):
         return render(request, 'ransomwareType.html', {'picture': userinfo.picture,
                                                        'allRansomwares': allransomwares})
     else:
-        return redirect('/')
+        return redirect('/main')
 
 @login_required
 def role(request):
@@ -353,7 +356,7 @@ def role(request):
         return render(request, 'role.html', {'picture': userinfo.picture,
                                              'allUsers': allusers})
     else:
-        return redirect('/')
+        return redirect('/main')
 
 @login_required
 def risk_level_assessment(request):
@@ -364,7 +367,7 @@ def risk_level_assessment(request):
         return render(request, 'riskLevelAssessment.html', {'picture': userinfo.picture,
                                                             'allAssessments': allassessments})
     else:
-        return redirect('/')
+        return redirect('/main')
 
 @login_required
 def settings_table(request):
@@ -380,6 +383,6 @@ def settings_table(request):
                                                       'event': event,
                                                       'reporters': reporters})
     else:
-        return redirect('/')
+        return redirect('/main')
 
 

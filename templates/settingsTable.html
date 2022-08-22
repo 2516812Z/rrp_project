@@ -37,9 +37,9 @@ MAIN \ SETTINGS \ SETTINGS TABLE
             <div class="layui-input-block" style="width: 60%">
                 <select name="ransomwareType">
                     <option value="">Please select</option>
-                    <option value="Crypt">Crypt</option>
+                    <option value="Crypt">Crypto</option>
                     <option value="Locker">Locker</option>
-                    <option value="Shock">Shock</option>
+                    <option value="Shock">Scareware</option>
                     <option value="Other">Other</option>
                 </select>
             </div>
@@ -100,6 +100,7 @@ MAIN \ SETTINGS \ SETTINGS TABLE
 
         <div class="layui-form-item">
             <div class="layui-input-block">
+                <input type="hidden" value="D&A" name="sub_action" >
                 <button type="submit" class="layui-btn" lay-submit lay-filter="formDemo" >Submit</button>
                 <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
             </div>

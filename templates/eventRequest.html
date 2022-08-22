@@ -20,7 +20,7 @@ MAIN \ SECURITY EVENT \ EVENT REQUEST
 {% block body_block %}
 <h1 class="page_title">Security Event Request Form</h1>
 <div class="request_frame" style="padding: 25px">
-  <form class="layui-form " method="post" action="{% url 'event_request' %}">
+  <form class="layui-form " method="post" action="{% url 'event_request' %}" enctype="multipart/form-data">
 
     {% csrf_token %}
 
@@ -80,9 +80,9 @@ MAIN \ SECURITY EVENT \ EVENT REQUEST
             <div class="layui-input-block" style="width: 60%">
               <select name="rType">
                 <option value="">Please select</option>
-                <option value="Crypt">Crypt</option>
+                <option value="Crypt">Crypto</option>
                 <option value="Locker">Locker</option>
-                <option value="Shock">Shock</option>
+                <option value="Shock">Scareware</option>
                 <option value="Other">Other</option>
               </select>
             </div>
@@ -123,7 +123,9 @@ MAIN \ SECURITY EVENT \ EVENT REQUEST
 
     <div class="layui-form-item layui-form-text">
       <label class="layui-form-label">Evidence</label>
-      <input type="file" class="layui-btn layui-btn-primary" name="file" id="reg_pic1">
+      <input type="file" class="layui-btn layui-btn-primary" name="file1" id="req_pic1">
+      <input type="file" class="layui-btn layui-btn-primary" name="file2" id="req_pic2">
+      <input type="file" class="layui-btn layui-btn-primary" name="file3" id="req_pic3">
     </div>
 
     <div class="layui-form-item">
@@ -135,4 +137,3 @@ MAIN \ SECURITY EVENT \ EVENT REQUEST
   </form>
 </div>
 {% endblock %}
-

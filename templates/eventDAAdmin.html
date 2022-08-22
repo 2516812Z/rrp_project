@@ -100,7 +100,7 @@ MAIN \ SECURITY EVENT \ EVENT CHECK \ EVENT INFO
                 <div class="layui-col-md9"><p style="word-wrap:break-word">{{ event.recoveryInfo }}</p></div>
             </div>
             <div style="margin: 20px">
-                <form class="layui-form " method="post" action="/settings_table/">
+                <form class="layui-form " method="POST" action="/settings_table/">
                     {% csrf_token %}
                     <input type="hidden" value="D&A" name="sub_action" >
                     <input type="hidden" value="{{ event.id }}" name="sub_id" >
