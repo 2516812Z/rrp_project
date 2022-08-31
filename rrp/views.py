@@ -90,9 +90,16 @@ def index_info(request, info_id):
 def userprofile(request):
     user = request.user
     userinfo = Users.objects.get(user=user)
+    events = Event.objects.filter(requestUser=userinfo)
+    if events == None:
+        requestNum = 0
+    else:
+        requestNum = len(events)
     if userinfo.position == 'admin':
-        return render(request, 'userprofileAdmin.html', {'picture': userinfo.picture})
-    return render(request, 'userprofile.html', {'picture': userinfo.picture})
+        return render(request, 'userprofileAdmin.html', {'picture': userinfo.picture,
+                                                         'requestNum': requestNum})
+    return render(request, 'userprofile.html', {'picture': userinfo.picture,
+                                                'requestNum': requestNum})
 
 @login_required
 def event_request(request):
@@ -189,10 +196,7 @@ def event_info(request, event_id):
     repCount = len(event.reporters.all())
     allevi = Evidence.objects.filter(eventId=event)
     if request.method == 'POST':
-        print(sub_action)
-        print(event.currentProcess)
         if event.currentProcess == 'D&A' and sub_action == 'D&A':
-            print(22)
             rName = request.POST.get('ransomwareName')
             rType = request.POST.get('ransomwareType')
             rAmount = request.POST.get('ransomAmount')
